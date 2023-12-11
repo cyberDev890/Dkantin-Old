@@ -24,9 +24,11 @@ class LoginProvider extends GetxController {
       final token = jsonResponse['data']['token']; // Convert to String
       final username = jsonResponse['data']['username']; // Convert to String
       final email = jsonResponse['data']['email']; // Convert to String
-
       // Save token to SharedPreferences
-      saveTokenToSharedPreferencess(idKantin, token, username, email);
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', token);
+
+      saveTokenToSharedPreferencess(idKantin, username, email);
 
       return response;
     } else {
@@ -65,12 +67,11 @@ class LoginProvider extends GetxController {
   }
 
   Future<String> saveTokenToSharedPreferencess(
-      String idKantin, token, username, email) async {
+      String idKantin, username, email) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('id_kantin', idKantin);
     await prefs.setString('username', username);
     await prefs.setString('email', email);
-    await prefs.setString('token', token);
     return idKantin;
   }
 }
