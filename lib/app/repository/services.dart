@@ -1,6 +1,6 @@
 class Api {
-  static const koneksi = "http://dikantin.com/api";
-  static const gambar = "http://dikantin.com/";
+  static const koneksi = "https://4e8f-103-175-224-81.ngrok-free.app/api";
+  static const gambar = "https://4e8f-103-175-224-81.ngrok-free.app/";
   static const signUp = "$koneksi/validate/register";
   static const signIn = "$koneksi/validate/loginKantin";
   static const updateProfile = "$koneksi/validate/customerAccount";
@@ -17,15 +17,6 @@ class Api {
   static const minuman = "$koneksi/menu/drink/";
   static const diskon = "$koneksi/menu/productWithDiscount/";
   static const penghasilan = "$koneksi/dataPenjualan";
-  static const riwayat = "$koneksi/transaction/riwayatTransaction/";
-  static const pesananProses = "$koneksi/transaction/diproses";
-  static const pesananDikirim = "$koneksi/transaction/dikirim";
-  static const pesananDiterima = "$koneksi/transaction/diterima";
-  static const pesananUntukDikirim = "$koneksi/transaction/untukDikirim";
-  static const pesananKonfirmasi = "$koneksi/transaction/konfirmasi";
-  static const riwayatKurir = "$koneksi/transaction/riwayatKurir";
-  static const transaksi = "$koneksi/transaction";
-  static const kurirAktif = "$koneksi/validate/editProfile";
-  static const kurirLogout = "$koneksi/validate/logoutKurir";
+  static const pesananKantin = "$koneksi/transaction/listOrderKantin";
   static const konfirmasi = "$koneksi/transaction/konfirmasiPesanan";
 }
