@@ -116,6 +116,9 @@ class RiwayatScreenView extends GetView<RiwayatScreenController> {
                               typePembayaran: controller.riwayatData.value!.data
                                       .dataRiwayat[index].modelPembayaran ??
                                   'null',
+                              harga: controller.riwayatData.value!.data
+                                  .dataRiwayat[index].harga
+                                  .toString(),
                             );
                           },
                         ),
@@ -223,6 +226,7 @@ class RiwayatCard extends StatelessWidget {
   String subTotalPerItem;
   String total;
   String status;
+  String harga;
 
   RiwayatCard(
       {super.key,
@@ -233,7 +237,8 @@ class RiwayatCard extends StatelessWidget {
       required this.tanggal,
       required this.total,
       required this.transaksi,
-      required this.typePembayaran});
+      required this.typePembayaran,
+      required this.harga});
 
   @override
   Widget build(BuildContext context) {
@@ -257,7 +262,7 @@ class RiwayatCard extends StatelessWidget {
             children: [
               Text("Pembayaran:  ${this.typePembayaran}"),
               Text(
-                'Rp.${this.total}',
+                'Rp.${this.subTotalPerItem}',
                 style: TextStyle(color: Colors.blue),
               )
             ],
@@ -269,7 +274,7 @@ class RiwayatCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Rp.${this.subTotalPerItem}'),
+              Text('Rp.${this.harga}'),
               Text(
                 'Status: ${this.status}',
                 style: TextStyle(color: Colors.blue),
