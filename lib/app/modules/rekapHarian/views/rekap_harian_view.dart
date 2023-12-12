@@ -78,27 +78,22 @@ class RekapHarianView extends GetView<RekapHarianController> {
               ),
             ),
           );
-        } else if (rekapHarianController
-                .dataRekapPendapatanHarain.rPH?.isEmpty ??
+        } else if (rekapHarianController.rekapPendapatanharian.data?.isEmpty ??
             true) {
-          return Column(children: [
-            Container(
-                height: mediaHeight * 0.25,
-                child: Center(
-                  child: Lottie.asset('assets/animation_lokcom8c.json',
-                      repeat: false),
-                )),
-            Text("text"),
-          ]);
+          return Container(
+              height: mediaHeight * 0.25,
+              child: Center(
+                child: Lottie.asset('assets/animation_lokcom8c.json',
+                    repeat: false),
+              ));
         } else {
           return ListView.builder(
-            itemCount:
-                rekapHarianController.dataRekapPendapatanHarain.rPH!.length,
+            itemCount: rekapHarianController.rekapPendapatanharian.data!.length,
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
               final rekapMenu =
-                  controller.dataRekapPendapatanHarain.rPH![index];
+                  rekapHarianController.rekapPendapatanharian.data![index];
               final harga = rekapMenu.totalPendapatan ?? 0;
 
               return Padding(
@@ -360,6 +355,7 @@ class RekapHarianView extends GetView<RekapHarianController> {
   }
 
   Widget saldo(BuildContext context) {
+    final total = rekapHarianController.rekapPendapatanharian.data2 ?? 0;
     return Column(
       children: [
         Padding(
@@ -377,7 +373,7 @@ class RekapHarianView extends GetView<RekapHarianController> {
                         fontWeight: FontWeight.w600)),
               ),
               Text(
-                'Rp400.404',
+                total.toRupiah(),
                 style: GoogleFonts.poppins(
                     textStyle: const TextStyle(
                         fontSize: 14,

@@ -6,9 +6,9 @@ import '../../../data/providers/rph_provider.dart';
 class RekapHarianController extends GetxController {
   //TODO: Implement RekapHarianController
   final isLoading = false.obs; // Tambahkan isLoading
-  late Data dataRekapPendapatanHarain = Data();
   final rekapProvider = RekapPendapatanHarian().obs;
-  var rekap = <RPH>[].obs;
+  late RekapPendapatanharian rekapPendapatanharian = RekapPendapatanharian();
+  var rekapData = <Data>[].obs;
 
   final count = 0.obs;
   @override
@@ -33,8 +33,8 @@ class RekapHarianController extends GetxController {
     try {
       isLoading(true);
       final result = await rekapProvider.value.loadDataRPH();
-      dataRekapPendapatanHarain = result;
-      rekap.assignAll(result.rPH ?? []);
+      rekapPendapatanharian = result;
+      rekapData.assignAll(result.data!);
       isLoading(false);
     } catch (error) {
       isLoading(false);

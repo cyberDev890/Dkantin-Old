@@ -80,7 +80,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.REKAP_HARIANPRODUK,
-      page: () => const RekapHarianprodukView(),
+      page: () =>  RekapHarianprodukView(),
       binding: RekapHarianprodukBinding(),
     ),
     GetPage(

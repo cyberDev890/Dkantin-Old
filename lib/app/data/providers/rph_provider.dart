@@ -7,7 +7,7 @@ import '../../repository/services.dart';
 import '../models/RekapHarian.dart';
 
 class RekapPendapatanHarian extends GetxController {
-  Future<Data> loadDataRPH() async {
+  Future<RekapPendapatanharian> loadDataRPH() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
     final response = await http.get(
@@ -19,7 +19,7 @@ class RekapPendapatanHarian extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      return Data.fromJson(jsonDecode(response.body));
+      return RekapPendapatanharian.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal memuat data');
     }

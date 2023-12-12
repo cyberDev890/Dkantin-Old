@@ -7,7 +7,7 @@ class Api {
   static const count = "$koneksi/transaction/count";
   static const updateHabis = "$koneksi/updatehabis";
   static const updateAda = "$koneksi/updateada";
-  static const riwayat = "$koneksi/";
   static const rph = "$koneksi/transaction/RPH";
   static const rhp = "$koneksi/transaction/RHP";
+  static const riwayat = "$koneksi/transaction/riwayatKantin";
 }

@@ -1,54 +1,36 @@
-class RekapHarian {
-  Data? data;
+class RekapPendapatanharian {
+  List<Data>?
+      data; // Change the type to List<Data> instead of Map<String, dynamic>?
+  int? data2;
   int? code;
   bool? status;
 
-  RekapHarian({this.data, this.code, this.status});
+  RekapPendapatanharian({this.data, this.data2, this.code, this.status});
 
-  RekapHarian.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? Data?.fromJson(json['data']) : null;
+  RekapPendapatanharian.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      data = <Data>[]; // Initialize as an empty list
+      json['data'].forEach((v) {
+        data?.add(Data.fromJson(v));
+      });
+    }
+    data2 = json['data2'];
     code = json['code'];
     status = json['status'];
   }
-
   Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    if (this.data != null) {
-      data['data'] = this.data?.toJson();
+    final jsonData = <String, dynamic>{};
+    if (data != null) {
+      jsonData['data'] = data?.map((v) => v.toJson()).toList();
     }
-    data['code'] = code;
-    data['status'] = status;
-    return data;
+    jsonData['data2'] = data2;
+    jsonData['code'] = code;
+    jsonData['status'] = status;
+    return jsonData;
   }
 }
 
 class Data {
-  List<RPH>? rPH;
-  int? dataTotal;
-
-  Data({this.rPH, this.dataTotal});
-
-  Data.fromJson(Map<String, dynamic> json) {
-    if (json['RPH'] != null) {
-      rPH = <RPH>[];
-      json['RPH'].forEach((v) {
-        rPH?.add(RPH.fromJson(v));
-      });
-    }
-    dataTotal = json['dataTotal'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    if (rPH != null) {
-      data['RPH'] = rPH?.map((v) => v.toJson()).toList();
-    }
-    data['dataTotal'] = dataTotal;
-    return data;
-  }
-}
-
-class RPH {
   String? tanggalTransaksi;
   int? jumlahTransaksi;
   String? cash;
@@ -58,17 +40,18 @@ class RPH {
   String? transferbank;
   int? totalPendapatan;
 
-  RPH(
-      {this.tanggalTransaksi,
-      this.jumlahTransaksi,
-      this.cash,
-      this.qris,
-      this.gopay,
-      this.polijepay,
-      this.transferbank,
-      this.totalPendapatan});
+  Data({
+    this.tanggalTransaksi,
+    this.jumlahTransaksi,
+    this.cash,
+    this.qris,
+    this.gopay,
+    this.polijepay,
+    this.transferbank,
+    this.totalPendapatan,
+  });
 
-  RPH.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     tanggalTransaksi = json['tanggal_transaksi'];
     jumlahTransaksi = json['jumlah_transaksi'];
     cash = json['cash'];
