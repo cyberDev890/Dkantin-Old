@@ -15,6 +15,8 @@ import '../modules/pesanan/views/pesanan_view.dart';
 import '../modules/profil/bindings/profil_binding.dart';
 import '../modules/profil/views/profil_view.dart';
 import '../modules/riwayat/bindings/riwayat_binding.dart';
+import '../modules/riwayat/riwayat_screen/bindings/riwayat_screen_binding.dart';
+import '../modules/riwayat/riwayat_screen/views/riwayat_screen_view.dart';
 import '../modules/riwayat/views/riwayat_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
@@ -24,7 +26,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.NAVIGATION;
+  static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(
@@ -40,7 +42,14 @@ class AppPages {
     GetPage(
       name: _Paths.RIWAYAT,
       page: () => const RiwayatView(),
-      binding: RiwayatBinding(),
+      bindings: [RiwayatBinding(), RiwayatScreenBinding()],
+      children: [
+        GetPage(
+          name: _Paths.RIWAYAT_SCREEN,
+          page: () => RiwayatScreenView(),
+          binding: RiwayatScreenBinding(),
+        ),
+      ],
     ),
     GetPage(
       name: _Paths.PROFIL,
@@ -59,7 +68,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MENU_NAV,
-      page: () => const MenuNavView(),
+      page: () => MenuNavView(),
       binding: MenuNavBinding(),
     ),
     GetPage(

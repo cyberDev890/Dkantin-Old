@@ -2,12 +2,16 @@ import 'package:carbon_icons/carbon_icons.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../menuNav/controllers/menu_nav_controller.dart';
 import '../controllers/profil_controller.dart';
 
 class ProfilView extends GetView<ProfilController> {
   ProfilView({Key? key}) : super(key: key);
   final ProfilController profilController = Get.put(ProfilController());
+  final MenuNavController menuNavController = Get.find<MenuNavController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,19 +70,25 @@ class ProfilView extends GetView<ProfilController> {
                   Obx(
                     () => Text(
                       profilController.username.toString() ?? '',
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
                           color: Color(0xffedf4f6),
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
+                        ),
+                      ),
                     ),
                   ),
                   Obx(
                     () => Text(
                       profilController.email.toString() ?? '',
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
                           color: Color(0xffedf4f6),
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -321,62 +331,44 @@ class ProfilView extends GetView<ProfilController> {
                       ],
                     ),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Expanded(
+                        Container(
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 8.0, right: 14, left: 10),
-                                child: Image.asset(
-                                  "assets/Vector.png",
-                                  height: 50,
-                                  width: 100,
-                                ),
+                              Image.asset(
+                                "assets/Vector.png",
+                                height: 50,
+                                width: 100,
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  top: 2,
-                                  right: MediaQuery.of(context).size.width *
-                                      0.01, // menggunakan persentase dari lebar layar
-                                  left: MediaQuery.of(context).size.width *
-                                      0.05, // menggunakan persentase dari lebar layar
-                                ),
-                                child: Text(
-                                  "Total Menu",
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    // fontWeight: FontWeight.bold,
-                                  ),
+                              Text(
+                                "Total Menu",
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  // fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        // VerticalDivider(
-                        //     width: 20, thickness: 1, color: Color(0xff514D4E)),
-                        // Expanded(
-                        //   flex: 1,
-                        //   child: FutureBuilder<List<MenuApi>>(
-                        //     future: api.getMenu(),
-                        //     builder: (context, snapshot) {
-                        //       if (snapshot.hasData) {
-                        //         return Padding(
-                        //           padding: const EdgeInsets.all(8.0),
-                        //           child: Text(' ${snapshot.data!.length}',
-                        //               textAlign: TextAlign.left,
-                        //               style: TextStyle(
-                        //                 fontSize: 50.0,
-                        //               )),
-                        //         );
-                        //       } else if (snapshot.hasError) {
-                        //         return Text('Error: ${snapshot.error}');
-                        //       } else {
-                        //         return Text("Not found");
-                        //       }
-                        //     },
-                        //   ),
-                        // ),
+                        VerticalDivider(
+                          width: 1,
+                          thickness: 1,
+                          color: Color(0xff514D4E),
+                        ),
+                        Container(
+                          child: Text(
+                            (menuNavController.dataMenu.length ?? 0).toString(),
+                            style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                fontSize: 35,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),

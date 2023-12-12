@@ -13,6 +13,7 @@ abstract class Routes {
   static const MENU_NAV = _Paths.MENU_NAV;
   static const SPLASH = _Paths.SPLASH;
   static const ONBOARDING = _Paths.ONBOARDING;
+  static const RIWAYAT_SCREEN = _Paths.RIWAYAT + _Paths.RIWAYAT_SCREEN;
 }
 
 abstract class _Paths {
@@ -27,4 +28,5 @@ abstract class _Paths {
   static const MENU_NAV = '/menu-nav';
   static const SPLASH = '/splash';
   static const ONBOARDING = '/onboarding';
+  static const RIWAYAT_SCREEN = '/riwayat-screen';
 }

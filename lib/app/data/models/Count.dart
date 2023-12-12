@@ -1,12 +1,12 @@
-class Penghasilan {
+class Count {
   Data? data;
   int? code;
   bool? status;
 
-  Penghasilan({this.data, this.code, this.status});
+  Count({this.data, this.code, this.status});
 
-  Penghasilan.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+  Count.fromJson(Map<String, dynamic> json) {
+    data = json['data'] != null ? Data?.fromJson(json['data']) : null;
     code = json['code'];
     status = json['status'];
   }
@@ -23,20 +23,20 @@ class Penghasilan {
 }
 
 class Data {
-  int? penjualanBulanIni;
-  int? penjualanHariIni;
+  int? selesai;
+  int? dilayani;
 
-  Data({this.penjualanBulanIni, this.penjualanHariIni});
+  Data({this.selesai, this.dilayani});
 
   Data.fromJson(Map<String, dynamic> json) {
-    penjualanBulanIni = json['penjualanBulanIni'];
-    penjualanHariIni = json['penjualanHariIni'];
+    selesai = json['selesai'];
+    dilayani = json['dilayani'];
   }
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-    data['penjualanBulanIni'] = penjualanBulanIni;
-    data['penjualanHariIni'] = penjualanHariIni;
+    data['selesai'] = selesai;
+    data['dilayani'] = dilayani;
     return data;
   }
 }
