@@ -75,7 +75,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.REKAP_HARIAN,
-      page: () => const RekapHarianView(),
+      page: () => RekapHarianView(),
       binding: RekapHarianBinding(),
     ),
     GetPage(
