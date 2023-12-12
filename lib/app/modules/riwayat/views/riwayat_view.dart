@@ -10,7 +10,7 @@ class RiwayatView extends GetView<RiwayatController> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2, // Specify the number of tabs
+      length: 3, // Update to match the number of tabs
       child: Scaffold(
         appBar: AppBar(
           title: Padding(
@@ -38,7 +38,7 @@ class RiwayatView extends GetView<RiwayatController> {
             ],
           ),
         ),
-        body:  TabBarView(
+        body: TabBarView(
           children: [
             RiwayatScreenView(),
             Center(
