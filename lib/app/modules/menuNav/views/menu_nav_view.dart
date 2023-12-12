@@ -183,58 +183,66 @@ class MenuNavView extends GetView<MenuNavController> {
                                 SizedBox(
                                   height: 5,
                                 ),
-                                Text(harga.toRupiah(),
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 14,
-                                      color: Colors.red,
-                                    )),
-                                menuDatas.statusStok.toString() == 'ada'
-                                    ? ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Color(0xFF2579FD),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
-                                        ),
-                                        onPressed: () async {
-                                          menuNavController.menuHabis(
-                                              menuDatas.idMenu.toString());
-                                        },
-                                        child: Text(
-                                          "Tersedia",
-                                          style: GoogleFonts.poppins(
-                                            textStyle: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(harga.toRupiah(),
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          color: Colors.red,
+                                        )),
+                                    menuDatas.statusStok.toString() == 'ada'
+                                        ? ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  Color(0xFF2579FD),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                            ),
+                                            onPressed: () async {
+                                              menuNavController.menuHabis(
+                                                  menuDatas.idMenu.toString());
+                                            },
+                                            child: Text(
+                                              "Tersedia",
+                                              style: GoogleFonts.poppins(
+                                                textStyle: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        : ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  Color(0xFF2579FD),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              menuNavController.menuAda(
+                                                  menuDatas.idMenu.toString());
+                                            },
+                                            child: Text(
+                                              "Habis",
+                                              style: GoogleFonts.poppins(
+                                                textStyle: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      )
-                                    : ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Color(0xFF2579FD),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          menuNavController.menuAda(
-                                              menuDatas.idMenu.toString());
-                                        },
-                                        child: Text(
-                                          "Habis",
-                                          style: GoogleFonts.poppins(
-                                            textStyle: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                  ],
+                                ),
                               ],
                             ),
                           ),

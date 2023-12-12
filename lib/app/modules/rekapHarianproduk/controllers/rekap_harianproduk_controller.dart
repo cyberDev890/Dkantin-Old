@@ -1,10 +1,9 @@
 import 'package:get/get.dart';
 
-class RiwayatScreenController extends GetxController {
-  //TODO: Implement RiwayatScreenController
+class RekapHarianprodukController extends GetxController {
+  //TODO: Implement RekapHarianprodukController
 
   final count = 0.obs;
-  var date = "yaa".obs;
   @override
   void onInit() {
     super.onInit();
@@ -21,6 +20,4 @@ class RiwayatScreenController extends GetxController {
   }
 
   void increment() => count.value++;
-
-  void fetchRiwayat() {}
 }
