@@ -12,5 +12,5 @@ class Api {
   static const updateAda = "$koneksi/updateada";
   static const rph = "$koneksi/transaction/RPH";
   static const rhp = "$koneksi/transaction/RHP";
-  static const riwayat = "$koneksi/";
+  static const riwayat = "$koneksi/transaction/riwayatKantin";
 }

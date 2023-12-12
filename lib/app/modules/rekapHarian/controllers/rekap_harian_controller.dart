@@ -6,7 +6,7 @@ import '../../../data/providers/rekapPendapatanHarian_provider.dart';
 class RekapHarianController extends GetxController {
   //TODO: Implement RekapHarianController
   final isLoading = false.obs; // Tambahkan isLoading
-  final dataRekapPendapatanHarain = RekapPendapatanHarian().obs;
+  final dataRekapPendapatanHarian = RekapPendapatanHarian().obs;
   final modelRPH = <RekapHarian>[].obs;
 
   final count = 0.obs;
