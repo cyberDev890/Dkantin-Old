@@ -1,3 +1,4 @@
+import 'package:dikantin_o_l_d/app/repository/formatRupiah.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -10,6 +11,10 @@ class BerandaView extends GetView<BerandaController> {
   final BerandaController berandaController = Get.put(BerandaController());
   @override
   Widget build(BuildContext context) {
+    final penjualanBulanIni =
+        berandaController.penghasilan.value.data?.penjualanBulanIni ?? 0;
+    final penjualanHariIni =
+        berandaController.penghasilan.value.data?.penjualanHariIni ?? 0;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: null, // remove background color
@@ -89,7 +94,7 @@ class BerandaView extends GetView<BerandaController> {
                         width: 0.5,
                       )),
                   child: Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.fromLTRB(15, 10, 10, 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -112,10 +117,14 @@ class BerandaView extends GetView<BerandaController> {
                             ),
                           ],
                         ),
+                        SizedBox(
+                          height: 5,
+                        ),
                         Obx(
-                          () => berandaController.penghasilan.value.data
-                                      ?.penjualanBulanIni ==
-                                  ""
+                          () => berandaController
+                                      .penghasilan.value.data?.penjualanBulanIni
+                                      .toString() ==
+                                  0
                               ? Text(
                                   "Rp.0",
                                   style: TextStyle(
@@ -125,8 +134,7 @@ class BerandaView extends GetView<BerandaController> {
                                   ),
                                 )
                               : Text(
-                                  'Rp.${berandaController.penghasilan.value.data?.penjualanBulanIni}' ??
-                                      "Rp.0",
+                                  penjualanBulanIni.toRupiah() ?? "Rp.0",
                                   style: TextStyle(
                                     fontSize: 30,
                                     color: Color(0xff4a81dc),
@@ -135,7 +143,7 @@ class BerandaView extends GetView<BerandaController> {
                                 ),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         Text(
                           "Pendapatan tanggal: " +
@@ -146,7 +154,7 @@ class BerandaView extends GetView<BerandaController> {
                           ),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 5,
                         ),
                         Row(
                           children: [
@@ -154,11 +162,12 @@ class BerandaView extends GetView<BerandaController> {
                             //   height: 20,
                             // ),
                             Expanded(
-                              flex: 3,
+                              flex: 2,
                               child: Obx(
                                 () => berandaController.penghasilan.value.data
-                                            ?.penjualanHariIni ==
-                                        ""
+                                            ?.penjualanBulanIni
+                                            .toString() ==
+                                        0
                                     ? Text(
                                         "Rp.0",
                                         style: TextStyle(
@@ -168,9 +177,7 @@ class BerandaView extends GetView<BerandaController> {
                                         ),
                                       )
                                     : Text(
-                                        berandaController.penghasilan.value.data
-                                                ?.penjualanHariIni ??
-                                            "Rp.0",
+                                        penjualanHariIni.toRupiah() ?? "Rp.0",
                                         style: TextStyle(
                                           fontSize: 30,
                                           color: Color(0xff4a81dc),
@@ -218,221 +225,6 @@ class BerandaView extends GetView<BerandaController> {
                 ),
                 alignment: Alignment.centerLeft,
               ),
-
-              // Container(
-              //   alignment: Alignment.center,
-              //   child:
-              //       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              //     SizedBox(width: 10),
-              //     Container(
-              //       width: 160,
-              //       height: 100,
-              //       decoration: BoxDecoration(
-              //         color: Colors.white,
-              //         borderRadius: BorderRadius.circular(15),
-              //         boxShadow: [
-              //           BoxShadow(
-              //             color: Colors.black26,
-              //             offset: Offset(2, 2),
-              //             blurRadius: 5,
-              //           ),
-              //         ],
-              //       ),
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Expanded(
-              //             child: ClipRect(
-              //               child: Align(
-              //                 alignment: Alignment(-0.5, 0.1),
-              //                 child: Transform.scale(
-              //                   scale: 1.5,
-              //                   child: Image(
-              //                     image: AssetImage("assets/succes.png"),
-              //                     fit: BoxFit.contain,
-              //                   ),
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //           Container(
-              //             margin: EdgeInsets.only(top: 0, bottom: 0, left: 25),
-              //             child: Row(
-              //               mainAxisAlignment: MainAxisAlignment.start,
-              //               children: [
-              //                 Text(
-              //                   "Selesai",
-              //                   style: TextStyle(
-              //                     fontSize: 14,
-              //                     fontWeight: FontWeight.bold,
-              //                     color: Color(0xff84d895),
-              //                   ),
-              //                 ),
-              //                 FutureBuilder<int>(
-              //                   future: listSuccess
-              //                       .getsuccesdate(), // Perubahan pada nama metode
-              //                   builder: (context, snapshot) {
-              //                     final jumlahListSuccess = snapshot.data!;
-              //                     if (snapshot.connectionState ==
-              //                         ConnectionState.waiting) {
-              //                       // Menambahkan pengecekan jika data masih dalam proses pengambilan
-              //                       return CircularProgressIndicator(); // Misalnya, tampilkan loading indicator
-              //                     } else if (snapshot.hasData) {
-              //                       return Container(
-              //                         margin:
-              //                             EdgeInsets.only(left: 40, bottom: 5),
-              //                         child: Text(
-              //                           '$jumlahListSuccess',
-              //                           style: TextStyle(
-              //                             fontSize: 30,
-              //                             fontWeight: FontWeight.bold,
-              //                             color: Color(0xff84d895),
-              //                           ),
-              //                         ),
-              //                       );
-              //                     } else if (snapshot.hasError) {
-              //                       return Container(
-              //                         margin:
-              //                             EdgeInsets.only(left: 40, bottom: 5),
-              //                         child: Text(
-              //                           '0',
-              //                           style: TextStyle(
-              //                             fontSize: 30,
-              //                             fontWeight: FontWeight.bold,
-              //                             color: Color(0xff84d895),
-              //                           ),
-              //                         ),
-              //                       );
-              //                       // return Text('Error: ${snapshot.error}');
-              //                     } else {
-              //                       return Container(
-              //                         margin:
-              //                             EdgeInsets.only(left: 40, bottom: 5),
-              //                         child: Text(
-              //                           '0',
-              //                           style: TextStyle(
-              //                             fontSize: 30,
-              //                             fontWeight: FontWeight.bold,
-              //                             color: Color(0xff84d895),
-              //                           ),
-              //                         ),
-              //                       );
-              //                     }
-              //                   },
-              //                 ),
-              //               ],
-              //             ),
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //     SizedBox(width: 10),
-              //     Container(
-              //       width: 160,
-              //       height: 100,
-              //       decoration: BoxDecoration(
-              //         color: Colors.white,
-              //         borderRadius: BorderRadius.circular(15),
-              //         boxShadow: [
-              //           BoxShadow(
-              //             color: Colors.black26,
-              //             offset: Offset(2, 2),
-              //             blurRadius: 5,
-              //           ),
-              //         ],
-              //       ),
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Expanded(
-              //             child: ClipRect(
-              //               child: Align(
-              //                 alignment: Alignment(-0.5, 0.1),
-              //                 child: Transform.scale(
-              //                   scale: 1.5,
-              //                   child: Image(
-              //                     image:
-              //                         AssetImage("assets/tabler_loader-3.png"),
-              //                     fit: BoxFit.contain,
-              //                   ),
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //           Container(
-              //             margin: EdgeInsets.only(top: 0, bottom: 0, left: 25),
-              //             child: Row(
-              //               mainAxisAlignment: MainAxisAlignment.start,
-              //               children: [
-              //                 Text(
-              //                   "Dilayani",
-              //                   style: TextStyle(
-              //                     fontSize: 14,
-              //                     fontWeight: FontWeight.bold,
-              //                     color: Color(0xff87C6E7),
-              //                   ),
-              //                 ),
-              //                 FutureBuilder<int>(
-              //                   future: listProses
-              //                       .getprosesdate(), // Perubahan pada nama metode
-              //                   builder: (context, snapshot) {
-              //                     final jumlahListProses = snapshot.data!;
-              //                     if (snapshot.connectionState ==
-              //                         ConnectionState.waiting) {
-              //                       // Menambahkan pengecekan jika data masih dalam proses pengambilan
-              //                       return CircularProgressIndicator(); // Misalnya, tampilkan loading indicator
-              //                     } else if (snapshot.hasData) {
-              //                       return Container(
-              //                         margin:
-              //                             EdgeInsets.only(left: 40, bottom: 5),
-              //                         child: Text(
-              //                           '$jumlahListProses',
-              //                           style: TextStyle(
-              //                             fontSize: 30,
-              //                             fontWeight: FontWeight.bold,
-              //                             color: Color(0xff87C6E7),
-              //                           ),
-              //                         ),
-              //                       );
-              //                     } else if (snapshot.hasError) {
-              //                       return Container(
-              //                         margin:
-              //                             EdgeInsets.only(left: 40, bottom: 5),
-              //                         child: Text(
-              //                           '0',
-              //                           style: TextStyle(
-              //                             fontSize: 30,
-              //                             fontWeight: FontWeight.bold,
-              //                             color: Color(0xff84d895),
-              //                           ),
-              //                         ),
-              //                       );
-              //                       // return Text('Error: ${snapshot.error}');
-              //                     } else {
-              //                       return Container(
-              //                         margin:
-              //                             EdgeInsets.only(left: 40, bottom: 5),
-              //                         child: Text(
-              //                           '0',
-              //                           style: TextStyle(
-              //                             fontSize: 30,
-              //                             fontWeight: FontWeight.bold,
-              //                             color: Color(0xff84d895),
-              //                           ),
-              //                         ),
-              //                       );
-              //                     }
-              //                   },
-              //                 ),
-              //               ],
-              //             ),
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //   ]),
-              // ),
-
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Row(
@@ -462,13 +254,18 @@ class BerandaView extends GetView<BerandaController> {
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 8, 0, 4),
-                                    child: Text(
-                                      "0",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18),
+                                    child: Obx(
+                                      () => Text(
+                                        berandaController
+                                                .dilayani.value.data?.dilayani
+                                                .toString() ??
+                                            '0',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18),
+                                      ),
                                     ),
                                   ),
                                   Text(
@@ -512,13 +309,18 @@ class BerandaView extends GetView<BerandaController> {
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 8, 0, 4),
-                                    child: Text(
-                                      "0",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18),
+                                    child: Obx(
+                                      () => Text(
+                                        berandaController
+                                                .dilayani.value.data?.selesai
+                                                .toString() ??
+                                            '0',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18),
+                                      ),
                                     ),
                                   ),
                                   Text(
@@ -537,7 +339,6 @@ class BerandaView extends GetView<BerandaController> {
                   ],
                 ),
               ),
-
               SizedBox(
                 height: 60,
               ),

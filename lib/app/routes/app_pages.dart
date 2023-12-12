@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/beranda/bindings/beranda_binding.dart';
 import '../modules/beranda/views/beranda_view.dart';
+import '../modules/laporan/bindings/laporan_binding.dart';
+import '../modules/laporan/views/laporan_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/menuNav/bindings/menu_nav_binding.dart';
@@ -14,6 +16,10 @@ import '../modules/pesanan/bindings/pesanan_binding.dart';
 import '../modules/pesanan/views/pesanan_view.dart';
 import '../modules/profil/bindings/profil_binding.dart';
 import '../modules/profil/views/profil_view.dart';
+import '../modules/rekapHarian/bindings/rekap_harian_binding.dart';
+import '../modules/rekapHarian/views/rekap_harian_view.dart';
+import '../modules/rekapHarianproduk/bindings/rekap_harianproduk_binding.dart';
+import '../modules/rekapHarianproduk/views/rekap_harianproduk_view.dart';
 import '../modules/riwayat/bindings/riwayat_binding.dart';
 import '../modules/riwayat/views/riwayat_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
@@ -24,7 +30,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.NAVIGATION;
+  static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(
@@ -36,11 +42,6 @@ class AppPages {
       name: _Paths.PESANAN,
       page: () => const PesananView(),
       binding: PesananBinding(),
-    ),
-    GetPage(
-      name: _Paths.RIWAYAT,
-      page: () => const RiwayatView(),
-      binding: RiwayatBinding(),
     ),
     GetPage(
       name: _Paths.PROFIL,
@@ -59,7 +60,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MENU_NAV,
-      page: () => const MenuNavView(),
+      page: () => MenuNavView(),
       binding: MenuNavBinding(),
     ),
     GetPage(
@@ -71,6 +72,21 @@ class AppPages {
       name: _Paths.ONBOARDING,
       page: () => const OnboardingView(),
       binding: OnboardingBinding(),
+    ),
+    GetPage(
+      name: _Paths.REKAP_HARIAN,
+      page: () => const RekapHarianView(),
+      binding: RekapHarianBinding(),
+    ),
+    GetPage(
+      name: _Paths.REKAP_HARIANPRODUK,
+      page: () => const RekapHarianprodukView(),
+      binding: RekapHarianprodukBinding(),
+    ),
+    GetPage(
+      name: _Paths.LAPORAN,
+      page: () => const LaporanView(),
+      binding: LaporanBinding(),
     ),
   ];
 }

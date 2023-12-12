@@ -9,11 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../beranda/controllers/beranda_controller.dart';
+import '../../menuNav/controllers/menu_nav_controller.dart';
 import '../controllers/navigation_controller.dart';
 
 class NavigationView extends GetView<NavigationController> {
   NavigationView({Key? key}) : super(key: key);
   final BerandaController berandaController = Get.put(BerandaController());
+  final MenuNavController menuNavController = Get.put(MenuNavController());
   final NavigationController navigationController =
       Get.put(NavigationController());
 
@@ -107,29 +109,38 @@ class NavigationView extends GetView<NavigationController> {
   }
 
   Widget _buildTabButton(int tabIndex, IconData icon, String label) {
-    return MaterialButton(
-      minWidth: 40,
-      onPressed: () {
-        navigationController.changeTab(tabIndex);
-      },
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            icon,
-            color: navigationController.currentTab.value == tabIndex
-                ? Color(0xffe4ea17)
-                : Color(0xff87c6e7),
-          ),
-          Text(
-            label,
-            style: TextStyle(
+    return Obx(
+      () => MaterialButton(
+        minWidth: 40,
+        onPressed: () {
+          navigationController.changeTab(tabIndex);
+          if (tabIndex == 1) {
+            // Call loadmenu when the "Menu" tab is pressed
+            menuNavController.loadmenu();
+          } else if (tabIndex == 0) {
+            berandaController.loadPenghasilan();
+            berandaController.loadDilayaniSelesai();
+          }
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
               color: navigationController.currentTab.value == tabIndex
                   ? Color(0xffe4ea17)
                   : Color(0xff87c6e7),
             ),
-          )
-        ],
+            Text(
+              label,
+              style: TextStyle(
+                color: navigationController.currentTab.value == tabIndex
+                    ? Color(0xffe4ea17)
+                    : Color(0xff87c6e7),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

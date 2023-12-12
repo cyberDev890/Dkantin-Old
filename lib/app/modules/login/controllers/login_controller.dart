@@ -1,5 +1,7 @@
+import 'package:dikantin_o_l_d/app/services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/providers/login_provider.dart';
 
@@ -9,8 +11,13 @@ class LoginController extends GetxController {
   final TextEditingController passwordController = TextEditingController();
   final count = 0.obs;
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    NotificationService notificationService = NotificationService();
+    var token = await notificationService.getDeviceToken();
+    // save token ketika login view di render
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString('tokenFcm', token);
   }
 
   @override

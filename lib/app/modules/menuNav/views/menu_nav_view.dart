@@ -1,234 +1,261 @@
+import 'package:dikantin_o_l_d/app/repository/formatRupiah.dart';
+import 'package:dikantin_o_l_d/app/repository/services.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../controllers/menu_nav_controller.dart';
 
 class MenuNavView extends GetView<MenuNavController> {
-  const MenuNavView({Key? key}) : super(key: key);
+  MenuNavView({Key? key}) : super(key: key);
+  final MenuNavController menuNavController = Get.find<MenuNavController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Container(
-                width: double.infinity,
-                height: 300,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/Group_14.png"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+      appBar: AppBar(
+        backgroundColor: null, // remove background color
+        automaticallyImplyLeading: false,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xff87c6e7),
+                Colors.blue,
+              ],
+            ),
+          ),
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 50.0,
+              height: 50.0,
+              decoration: BoxDecoration(
+                // color: Color(0xffedf3f6),
+                borderRadius: BorderRadius.all(Radius.circular(5)),
               ),
-              Positioned(
-                top: 30,
-                left: MediaQuery.of(context).size.width / 500,
-                right: MediaQuery.of(context).size.width / 500,
-                child: Container(
-                  width: 400,
-                  height: 50,
-                  child: Center(
-                    child: Text("MENU",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.white)),
-                  ),
-                ),
+              child: Image.asset(
+                "assets/logo_baru.png",
+                width: 20.0,
+                height: 20.0,
               ),
-              Container(
-                margin: EdgeInsets.only(top: 100),
-                decoration: BoxDecoration(
-                  color: Color(0xffedf3f6),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0x3f000000),
-                      offset: Offset(4, 4),
-                      blurRadius: 5,
+            ),
+            SizedBox(width: 5),
+            Text(
+              'MENU',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+            SizedBox(
+              height: 150,
+            ),
+          ],
+        ),
+      ),
+      body: RefreshIndicator(
+        onRefresh: () async => await menuNavController.loadmenu(),
+        child: CustomScrollView(
+          slivers: [
+            SliverList(
+              delegate: SliverChildListDelegate([
+                Center(
+                    child: Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
+                  child: Text(
+                    "Untuk mengganti ketersediaan menu, silahkan klik tombol ada atau tidak ada",
+                    style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xff514D4E),
+                      ),
                     ),
-                  ],
+                  ),
+                )),
+                content(context),
+              ]),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget content(BuildContext context) {
+    final baseColorHex = 0xFFE0E0E0;
+    final highlightColorHex = 0xFFC0C0C0;
+    final mediaHeight =
+        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
+    return Obx(() {
+      if (menuNavController.isLoading.value) {
+        return Shimmer.fromColors(
+          baseColor: Color(baseColorHex),
+          highlightColor: Color(highlightColorHex),
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Container(
+              height: mediaHeight,
+              child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: 5,
+                  itemBuilder: (BuildContext context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: mediaHeight * 0.25,
+                        decoration: const BoxDecoration(
+                          color: Colors.orange,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(
+                              20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+          ),
+        );
+      } else if (menuNavController.menuData.data?.isEmpty ?? true) {
+        return Container(
+            height: mediaHeight * 0.25,
+            child: Center(
+              child:
+                  Lottie.asset('assets/animation_lokcom8c.json', repeat: false),
+            ));
+      } else {
+        return ListView.builder(
+          itemCount: menuNavController.menuData.data!.length,
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (BuildContext context, int index) {
+            final menuDatas = menuNavController.menuData.data![index];
+            final harga = menuDatas.harga ?? 0;
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                      10.0), // Sesuaikan dengan radius yang diinginkan
                 ),
+                elevation: 5,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.only(left: 30),
-                        child: Text(
-                          "Untuk mengganti ketersediaan menu, silahkan klik tombol ada atau tidak ada",
-                          style: TextStyle(
-                            color: Color(0xff514D4E),
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.bold,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 80,
+                            width: 80,
+                            alignment: Alignment.topLeft,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                      Api.gambar + menuDatas.foto.toString()),
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.circular(10)),
                           ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 3,
-                      ),
-                      SingleChildScrollView(
-                        child: Padding(
-                          padding: EdgeInsets.only(right: 10, left: 10),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: MediaQuery.of(context).size.height /
-                                    1.35, // Set a fixed height for the GridView
-                                // child: FutureBuilder<List<MenuApi>>(
-                                //   future: listdata,
-                                //   builder: (context, snapshot) {
-                                //     if (snapshot.hasData) {
-                                //       List<MenuApi>? isimenu = snapshot.data;
-                                //       return Container(
-                                //         width:
-                                //             MediaQuery.of(context).size.width,
-                                //         child: GridView.builder(
-                                //           shrinkWrap: true,
-                                //           itemCount: isimenu?.length,
-                                //           gridDelegate:
-                                //               const SliverGridDelegateWithFixedCrossAxisCount(
-                                //             crossAxisCount: 3,
-                                //             crossAxisSpacing: 10,
-                                //             mainAxisSpacing: 15,
-                                //             childAspectRatio: 0.7,
-                                //           ),
-                                //           itemBuilder: (context, index) {
-                                //             return Card(
-                                //               elevation: 10,
-                                //               shape: RoundedRectangleBorder(
-                                //                 borderRadius:
-                                //                     BorderRadius.circular(20),
-                                //               ),
-                                //               child: Column(
-                                //                 children: <Widget>[
-                                //                   Image.network(
-                                //                     "http://dikantin.com/" +
-                                //                         isimenu![index]
-                                //                             .foto
-                                //                             .toString(),
-                                //                     width: 50.0,
-                                //                     height: 50.0,
-                                //                     fit: BoxFit.contain,
-                                //                   ),
-                                //                   SizedBox(height: 5),
-                                //                   Text(
-                                //                     isimenu[index]
-                                //                         .harga
-                                //                         .toString(),
-                                //                     style: TextStyle(
-                                //                       fontWeight:
-                                //                           FontWeight.bold,
-                                //                       color:
-                                //                           Color(0xff51AADD),
-                                //                       fontSize: 12,
-                                //                     ),
-                                //                   ),
-                                //                   Text(
-                                //                     isimenu[index]
-                                //                         .namaMenu
-                                //                         .toString(),
-                                //                     style: TextStyle(
-                                //                       fontWeight:
-                                //                           FontWeight.bold,
-                                //                       fontSize: 12,
-                                //                     ),
-                                //                   ),
-                                //                   ElevatedButton(
-                                //                     style: ElevatedButton
-                                //                         .styleFrom(
-                                //                       backgroundColor: isimenu[
-                                //                                       index]
-                                //                                   .statusStok ==
-                                //                               'ada'
-                                //                           ? Colors.green
-                                //                           : Color.fromARGB(
-                                //                               255,
-                                //                               228,
-                                //                               64,
-                                //                               67),
-                                //                     ),
-                                //                     onPressed: () async {
-                                //                       if (isimenu[index]
-                                //                               .statusStok ==
-                                //                           'ada') {
-                                //                         await UpdateHabisService()
-                                //                             .updatehabis(
-                                //                                 isimenu[index]
-                                //                                     .id
-                                //                                     .toString());
-                                //                         await _refreshMenu();
-                                //                       } else if (isimenu[
-                                //                                   index]
-                                //                               .statusStok ==
-                                //                           'tidak ada') {
-                                //                         await UpdateAdaService()
-                                //                             .updateada(isimenu[
-                                //                                     index]
-                                //                                 .id
-                                //                                 .toString());
-                                //                         await _refreshMenu();
-                                //                       }
-                                //                       // Panggil fungsi sendMessage
-                                //                       // sendMessage(
-                                //                       //     'eventName',
-                                //                       //     'message',
-                                //                       //     'channelName');
-                                //                     },
-                                //                     child: Text(
-                                //                       isimenu[index]
-                                //                           .statusStok
-                                //                           .toString(),
-                                //                       style: TextStyle(
-                                //                         fontWeight:
-                                //                             FontWeight.bold,
-                                //                         fontSize: 12,
-                                //                       ),
-                                //                     ),
-                                //                   ),
-                                //                 ],
-                                //               ),
-                                //             );
-                                //           },
-                                //         ),
-                                //       );
-                                //     } else if (snapshot.hasError) {
-                                //       return Text("${snapshot.error}");
-                                //     } else {
-                                //       return Center(
-                                //         child: CircularProgressIndicator(
-                                //           color: Colors.blue,
-                                //         ),
-                                //       );
-                                //     }
-                                //   },
-                                // ),
-                              ),
-                            ],
+                          SizedBox(
+                            width: 10,
                           ),
-                        ),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  menuDatas.nama ?? '',
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(harga.toRupiah(),
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          color: Colors.red,
+                                        )),
+                                    menuDatas.statusStok.toString() == 'ada'
+                                        ? ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  Color(0xFF2579FD),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                            ),
+                                            onPressed: () async {
+                                              menuNavController.menuHabis(
+                                                  menuDatas.idMenu.toString());
+                                            },
+                                            child: Text(
+                                              "Tersedia",
+                                              style: GoogleFonts.poppins(
+                                                textStyle: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        : ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  Color(0xFF2579FD),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              menuNavController.menuAda(
+                                                  menuDatas.idMenu.toString());
+                                            },
+                                            child: Text(
+                                              "Habis",
+                                              style: GoogleFonts.poppins(
+                                                textStyle: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            );
+          },
+        );
+      }
+    });
   }
 }
