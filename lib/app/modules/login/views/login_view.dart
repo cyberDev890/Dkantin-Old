@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:carbon_icons/carbon_icons.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controllers/login_controller.dart';
 
@@ -113,11 +116,17 @@ class LoginView extends GetView<LoginController> {
                                 backgroundColor:
                                     Color.fromARGB(255, 55, 156, 211),
                               ),
-                              onPressed: () {
+                              onPressed: () async {
+                                SharedPreferences sharedPreferences =
+                                    await SharedPreferences.getInstance();
+                                String? token =
+                                    sharedPreferences.getString('tokenFcm');
+                                print("login clicked");
+                                print(token);
                                 controller.login(
                                     controller.emailController.text,
                                     controller.passwordController.text,
-                                    "dsddasjgdhgashgdh");
+                                    token!);
                               },
                               child: const Text("Login"),
                             ),

@@ -1,3 +1,4 @@
+import 'package:dikantin_o_l_d/app/services/notification_service.dart';
 import 'package:get/get.dart';
 
 class SplashController extends GetxController {
@@ -7,6 +8,16 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    NotificationService fcmService =  NotificationService();
+    fcmService.requestNotificationPermission();
+    fcmService.forgroundMessage();
+    fcmService.firebaseInit(Get.context!);
+    fcmService.setupInteractMessage(Get.context!);
+    fcmService.isTokenRefresh();
+
+    fcmService.getDeviceToken().then((value) {
+      print("token fcm service" + value);
+    });
   }
 
   @override
