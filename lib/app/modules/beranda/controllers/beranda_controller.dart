@@ -55,6 +55,7 @@ class BerandaController extends GetxController {
       dilayani(result);
       isLoading(false);
       update();
+      print('sukses');
     } catch (error) {
       isLoading(false);
       print('Error fetching loadDilayaniSelesai: $error');

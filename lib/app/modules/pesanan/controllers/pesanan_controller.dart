@@ -95,7 +95,7 @@ class PesananController extends GetxController {
   Future<void> keMemasakselesaiOnline(String id_kantin, id_menu, kodeTr) async {
     try {
       isLoading(true);
-      await pesanankantinMemasakselesaiOnline.value
+      pesanankantinMemasakselesaiOnline.value
           .MemasakselesaiOnline(id_kantin, kodeTr, id_menu);
       // Refresh data setelah pembatalan pesanan berhasil
       await loadPesananKantin();

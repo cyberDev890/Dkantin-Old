@@ -73,7 +73,7 @@ class PesananKantin extends GetxController {
     }
   }
 
-  Future<void> MemasakselesaiOnline(String id_kantin, id_menu, kodeTr) async {
+  Future<void> MemasakselesaiOnline(String id_kantin, kodeTr, id_menu) async {
     final Map<String, String> postData = {
       "kode": "2",
       "kantin": id_kantin.toString(),

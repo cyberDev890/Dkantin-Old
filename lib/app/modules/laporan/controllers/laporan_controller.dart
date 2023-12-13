@@ -1,11 +1,13 @@
 import 'dart:convert';
 
 import 'package:dikantin_o_l_d/app/data/riwayat_provider.dart';
-import 'package:dikantin_o_l_d/app/modules/riwayat/riwayat_screen/data/riwayat.dart';
+import 'package:dikantin_o_l_d/app/data/models/riwayat.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LaporanController extends GetxController {
+  //TODO: Implement LaporanController
+
   var riwayatProvider = RiwayatProvider().obs;
   final count = 0.obs;
   var date = "semua".obs;

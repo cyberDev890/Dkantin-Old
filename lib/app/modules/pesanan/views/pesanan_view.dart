@@ -329,7 +329,7 @@ class PesananView extends GetView<PesananController> {
                                                                         style: ElevatedButton
                                                                             .styleFrom(
                                                                           backgroundColor:
-                                                                              Colors.green,
+                                                                              Colors.red,
                                                                         ),
                                                                         onPressed:
                                                                             () async {
@@ -406,7 +406,7 @@ class PesananView extends GetView<PesananController> {
                                                                         style: ElevatedButton
                                                                             .styleFrom(
                                                                           backgroundColor:
-                                                                              Colors.green,
+                                                                              Colors.purple,
                                                                         ),
                                                                         onPressed:
                                                                             () async {
