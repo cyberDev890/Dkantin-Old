@@ -12,7 +12,7 @@ import '../controllers/rekap_harian_controller.dart';
 class RekapHarianView extends GetView<RekapHarianController> {
   RekapHarianView({Key? key}) : super(key: key);
   final RekapHarianController rekapHarianController =
-      Get.put(RekapHarianController());
+      Get.find<RekapHarianController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,7 +121,7 @@ class RekapHarianView extends GetView<RekapHarianController> {
                               child: Row(
                             children: [
                               Text(
-                                'Tgl:${rekapMenu.tanggalTransaksi}',
+                                'Tgl: ${rekapMenu.tanggalTransaksi}',
                                 style: GoogleFonts.poppins(
                                   textStyle: const TextStyle(
                                     fontSize: 14,
@@ -335,14 +335,18 @@ class RekapHarianView extends GetView<RekapHarianController> {
               SizedBox(
                 width: 5,
               ),
-              Text(
-                '''RPH (Rekap Pendapatan Harian) merekap \nsemua pendapatan anda tiap harinya \nyang memungkinkan anda jika terdapat \nrekap harian, yaitu dengan cara pilih \n"2023-03-01"
-            ''',
-                style: GoogleFonts.poppins(
-                  textStyle: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
+              Container(
+                width: MediaQuery.of(context).size.width * 0.80,
+                child: Text(
+                  textAlign: TextAlign.justify,
+                  '''RPH (Rekap Pendapatan Harian) Merekap semua pendapatan anda tiap harinya yang memungkinkan anda jika terdapat rekap harian, yaitu dengan cara pilih "2023-03-01"
+                          ''',
+                  style: GoogleFonts.poppins(
+                    textStyle: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ),

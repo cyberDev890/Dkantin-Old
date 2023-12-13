@@ -13,7 +13,8 @@ import '../controllers/rekap_harianproduk_controller.dart';
 class RekapHarianprodukView extends GetView<RekapHarianprodukController> {
   RekapHarianprodukView({Key? key}) : super(key: key);
   final RekapHarianprodukController rekapHarianController =
-      Get.put(RekapHarianprodukController());
+      Get.find<RekapHarianprodukController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,10 +128,10 @@ class RekapHarianprodukView extends GetView<RekapHarianprodukController> {
                                         color: Colors.black,
                                         fontWeight: FontWeight.w700))),
                             Text(
-                              rekapMenu.totalPendapatan.toString(),
+                              hargaPendapatan.toRupiah(),
                               style: GoogleFonts.poppins(
                                   textStyle: const TextStyle(
-                                      fontSize: 13,
+                                      fontSize: 14,
                                       color: Color.fromARGB(255, 16, 99, 224),
                                       fontWeight: FontWeight.w700)),
                             )
@@ -208,9 +209,11 @@ class RekapHarianprodukView extends GetView<RekapHarianprodukController> {
               SizedBox(
                 width: 5,
               ),
-              Expanded(
+              Container(
+                width: MediaQuery.of(context).size.width * 0.80,
                 child: Text(
-                  '''RHP (Rekap Pendapatan Harian) Merekap semua pendapatan anda setiap produk yang ada jual, juga terdapat filter tanggal  yaitu dengan cara pilih "2023-03-01"
+                  textAlign: TextAlign.justify,
+                  '''RHP (Rekap Harian Produk) Merekap semua pendapatan anda setiap produk yang terjual, juga terdapat filter tanggal yaitu dengan cara pilih "2023-03-01"
                           ''',
                   style: GoogleFonts.poppins(
                     textStyle: const TextStyle(

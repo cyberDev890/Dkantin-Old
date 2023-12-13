@@ -138,7 +138,7 @@ class MenuNavView extends GetView<MenuNavController> {
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             final menuDatas = menuNavController.menuData.data![index];
-            final harga = menuDatas.harga ?? 0;
+            final harga = menuDatas.hargaPokok ?? 0;
             return Padding(
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: Card(

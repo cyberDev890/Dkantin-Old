@@ -71,7 +71,6 @@ class LaporanController extends GetxController {
         dateStart: dateNow?.value?.toLocal().toString().split(' ')[0],
         dateEnd: dateTo?.value?.toLocal().toString().split(' ')[0],
       );
-      print(response.body);
       // Parse and store Riwayat in the observable variable
       riwayatData.value = Riwayat.fromJson(jsonDecode(response.body));
     } else {

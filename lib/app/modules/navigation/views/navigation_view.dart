@@ -20,7 +20,6 @@ class NavigationView extends GetView<NavigationController> {
   final NavigationController navigationController =
       Get.put(NavigationController());
   final PesananController pesananController = Get.put(PesananController());
-
   @override
   Widget build(BuildContext context) {
     DateTime? currentBackPressTime;

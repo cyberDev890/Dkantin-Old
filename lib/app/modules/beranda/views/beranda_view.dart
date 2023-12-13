@@ -8,7 +8,7 @@ import '../controllers/beranda_controller.dart';
 
 class BerandaView extends GetView<BerandaController> {
   BerandaView({Key? key}) : super(key: key);
-  final BerandaController berandaController = Get.put(BerandaController());
+  final BerandaController berandaController = Get.find<BerandaController>();
   @override
   Widget build(BuildContext context) {
     final penjualanBulanIni =

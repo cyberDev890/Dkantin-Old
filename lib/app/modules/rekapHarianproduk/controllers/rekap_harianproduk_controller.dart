@@ -12,7 +12,6 @@ import '../../../data/models/rekapHarianProduk.dart';
 import '../../../data/providers/rhp_provider.dart';
 
 class RekapHarianprodukController extends GetxController {
-
   final isLoading = false.obs; // Tambahkan isLoading
   final dataRekapPendapatanHarain = RekapHarianProduk().obs;
   final rekapProvider = RekapHarianProdukProv().obs;

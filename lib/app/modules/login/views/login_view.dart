@@ -1,15 +1,11 @@
-import 'dart:developer';
-
 import 'package:carbon_icons/carbon_icons.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
-  const LoginView({Key? key}) : super(key: key);
+  LoginView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,39 +128,6 @@ class LoginView extends GetView<LoginController> {
                             ),
                           ),
                           SizedBox(height: 20),
-                          // SizedBox(
-                          //   width: 400,
-                          //   height: 40,
-                          //   child: ElevatedButton(
-                          //     style: ElevatedButton.styleFrom(
-                          //         shape: RoundedRectangleBorder(
-                          //           borderRadius: BorderRadius.circular(30.0),
-                          //         ),
-                          //         backgroundColor: Colors.white),
-                          //     onPressed: () {
-                          //       Navigator.push(
-                          //         context,
-                          //         MaterialPageRoute(
-                          //           builder: (context) => Register(),
-                          //         ),
-                          //       );
-                          //     },
-                          //     child: const Text(
-                          //       "Register",
-                          //       style: const TextStyle(
-                          //         color: Colors.black54,
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          // SizedBox(
-                          //   height: 20,
-                          // ),
-                          // Align(
-                          //   alignment: Alignment.center,
-                          //   child: Text("Forgot Password?"),
-                          // ),
-                          // SizedBox(height: 20),
                         ],
                       ),
                     ),
