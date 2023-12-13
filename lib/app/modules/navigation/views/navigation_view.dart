@@ -118,7 +118,7 @@ class NavigationView extends GetView<NavigationController> {
             // Call loadmenu when the "Menu" tab is pressed
             menuNavController.loadmenu();
           } else if (tabIndex == 0) {
-            berandaController.loadPenghasilan();
+            berandaController.loadPenghasilanbulanan();
             berandaController.loadDilayaniSelesai();
           }
         },
