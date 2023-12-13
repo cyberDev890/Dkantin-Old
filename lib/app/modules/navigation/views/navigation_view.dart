@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 
 import '../../beranda/controllers/beranda_controller.dart';
 import '../../menuNav/controllers/menu_nav_controller.dart';
+import '../../pesanan/controllers/pesanan_controller.dart';
 import '../controllers/navigation_controller.dart';
 
 class NavigationView extends GetView<NavigationController> {
@@ -18,6 +19,7 @@ class NavigationView extends GetView<NavigationController> {
   final MenuNavController menuNavController = Get.put(MenuNavController());
   final NavigationController navigationController =
       Get.put(NavigationController());
+  final PesananController pesananController = Get.put(PesananController());
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +48,10 @@ class NavigationView extends GetView<NavigationController> {
           backgroundColor: Colors.white, // Atur warna latar belakang Scaffold
           body: _buildBody(navigationController.currentTab.value),
           floatingActionButton: FloatingActionButton(
-            onPressed: () {
+            onPressed: () async {
+              await pesananController.loadPesananKantin();
               navigationController.changeTab(2);
+
               // Do other actions if needed
             },
             backgroundColor: navigationController.currentTab.value == 2

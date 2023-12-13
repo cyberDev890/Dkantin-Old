@@ -30,7 +30,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN;
+  static const INITIAL = Routes.SPLASH;
 
   static final routes = [
     GetPage(
@@ -40,7 +40,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PESANAN,
-      page: () => const PesananView(),
+      page: () => PesananView(),
       binding: PesananBinding(),
     ),
     GetPage(
@@ -80,7 +80,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.REKAP_HARIANPRODUK,
-      page: () =>  RekapHarianprodukView(),
+      page: () => RekapHarianprodukView(),
       binding: RekapHarianprodukBinding(),
     ),
     GetPage(

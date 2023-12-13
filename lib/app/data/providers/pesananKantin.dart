@@ -18,7 +18,7 @@ class PesananKantin extends GetxController {
     if (response.statusCode == 200) {
       return Test.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception('Gagal memuat data');
+      throw Exception('Gagal memuat s');
     }
   }
 

@@ -39,6 +39,7 @@ class PesananController extends GetxController {
       final result = await pesanankantinMemasakOnline.value.pesananKantin();
       pesananMemasakOnline.assignAll(result.data ?? []);
       isLoading(false);
+      print("object");
     } catch (error) {
       isLoading(false);
       print('Error fetching data: $error');

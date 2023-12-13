@@ -1,4 +1,6 @@
 // views/riwayat_screen_view.dart
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -26,7 +28,7 @@ class RiwayatScreenView extends GetView<LaporanController> {
               return Obx(() => Column(
                     children: [
                       Text(
-                        "Rp.${controller.riwayatData.value!.data.dataTotal ?? 0}",
+                        "Rp.${controller.riwayatData.value!.data.dataTotal}",
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 30,
@@ -154,59 +156,116 @@ class RiwayatScreenView extends GetView<LaporanController> {
                       child: Text('Cancel')),
                   InkWell(
                       onTap: () async {
-                        print(dateToController.text);
-                        controller.setDateFrom(
-                            DateTime.parse(dateFromController.text));
-                        controller
-                            .setDateTo(DateTime.parse(dateToController.text));
+                        if (!controller.isSemua.value) {
+                          controller.setDateFrom(
+                              DateTime.parse(dateFromController.text));
+                          controller
+                              .setDateTo(DateTime.parse(dateToController.text));
+                          DateFormat formatter = DateFormat('yyyy-MM-dd');
+                          controller.date.value = "${formatter.format(
+                                  DateTime.parse(dateFromController.text))}-${formatter.format(
+                                  DateTime.parse(dateToController.text))}";
+                        }
+
                         await controller.fetchRiwayat();
-                        DateFormat formatter = DateFormat('yyyy-MM-dd');
-                        controller.date.value = formatter.format(
-                                DateTime.parse(dateFromController.text)) +
-                            "-" +
-                            formatter
-                                .format(DateTime.parse(dateToController.text));
+
                         Navigator.pop(context); // Close the bottom sheet
                       },
                       child: Text('Done')),
                 ],
               ),
+              SizedBox(
+                height: 10,
+              ),
+              Obx(() => SwitchListTile(
+                    activeColor: Colors.blue,
+                    title: Text(
+                      'Semua',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                    value: controller.isSemua.value,
+                    onChanged: (value) {
+                      controller.isSemua.value = value;
+                    },
+                  )),
+              SizedBox(
+                height: 10,
+              ),
               // Input field for dateFrom
               TextField(
                 controller: dateFromController,
-                decoration: InputDecoration(labelText: 'Dari Tanggal'),
+                decoration: InputDecoration(
+                  labelText: 'Dari Tanggal',
+                  prefixIcon: Icon(Icons.date_range),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
                 onTap: () async {
                   DateTime? selectedDate = await showDatePicker(
                     context: context,
                     initialDate: DateTime.now(),
                     firstDate: DateTime(2000),
                     lastDate: DateTime(2101),
+                    builder: (BuildContext context, Widget? child) {
+                      return Theme(
+                        data: ThemeData.light().copyWith(
+                          primaryColor: Colors
+                              .blue, // header background color accentColor: Colors.blue, // select day color
+                          colorScheme: ColorScheme.light(primary: Colors.blue),
+                          buttonTheme: ButtonThemeData(
+                              textTheme: ButtonTextTheme.primary),
+                        ),
+                        child: child!,
+                      );
+                    },
                   );
-                  if (selectedDate != null) {
-                    dateFromController.text = selectedDate.toString();
 
+                  if (selectedDate != null) {
+                    dateFromController.text =
+                        DateFormat('yyyy-MM-dd').format(selectedDate);
                     // Set the value of dateNow using the function
                   }
                 },
               ),
               SizedBox(height: 16),
-              // Input field for dateTo
+
+// Input field for dateTo
               TextField(
                 controller: dateToController,
-                decoration: InputDecoration(labelText: 'Ke tanggal'),
+                decoration: InputDecoration(
+                  labelText: 'Ke tanggal',
+                  prefixIcon: Icon(Icons.date_range),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
                 onTap: () async {
                   DateTime? selectedDate = await showDatePicker(
                     context: context,
                     initialDate: DateTime.now(),
                     firstDate: DateTime(2000),
                     lastDate: DateTime(2101),
+                    builder: (BuildContext context, Widget? child) {
+                      return Theme(
+                        data: ThemeData.light().copyWith(
+                          primaryColor: Colors.blue, // header background color
+                          colorScheme: ColorScheme.light(primary: Colors.blue),
+                          buttonTheme: ButtonThemeData(
+                              textTheme: ButtonTextTheme.primary),
+                        ),
+                        child: child!,
+                      );
+                    },
                   );
                   if (selectedDate != null) {
-                    dateToController.text = selectedDate.toString();
+                    dateToController.text =
+                        DateFormat('yyyy-MM-dd').format(selectedDate);
                     // Set the value of dateTo using the function
                   }
                 },
               ),
+
               SizedBox(height: 16),
             ],
           ),

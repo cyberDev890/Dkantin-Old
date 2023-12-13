@@ -3,8 +3,11 @@ import 'package:get/get.dart';
 import '../controllers/beranda_controller.dart';
 
 class BerandaBinding extends Bindings {
-  @override
+   @override
   void dependencies() {
-    Get.put(BerandaController());
+    Get.put(
+      BerandaController(),
+    );
   }
 }
+
