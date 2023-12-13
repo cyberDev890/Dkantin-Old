@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -16,7 +18,7 @@ class RekapHarianprodukView extends GetView<RekapHarianprodukController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () => rekapHarianController.loadRekapHarian(),
+        onRefresh: () => rekapHarianController.loadHarianProdukAll(),
         child: CustomScrollView(
           slivers: [
             SliverList(
@@ -187,7 +189,7 @@ class RekapHarianprodukView extends GetView<RekapHarianprodukController> {
                 width: 5,
               ),
               Text(
-                '''RPH (Rekap Pendapatan Harian) Merekap \n semua pendapatan anda tiap harinya \n yang memungkinkan anda jika terdapat \n rekap harian, yaitu dengan cara pilih \n "2023-03-01"
+                '''RPH (Rekap Pendapatan Harian) Merekap \nsemua pendapatan anda setiap produk \nyang ada jual, juga terdapat filter \ntanggal  yaitu dengan cara pilih  \n"2023-03-01"
             ''',
                 style: GoogleFonts.poppins(
                   textStyle: const TextStyle(
@@ -205,6 +207,7 @@ class RekapHarianprodukView extends GetView<RekapHarianprodukController> {
   }
 
   Widget saldo(BuildContext context) {
+    final total = rekapHarianController.rekapPendapatanharian.data2 ?? 0;
     return Column(
       children: [
         Padding(
@@ -222,7 +225,7 @@ class RekapHarianprodukView extends GetView<RekapHarianprodukController> {
                         fontWeight: FontWeight.w600)),
               ),
               Text(
-                'Rp400.404',
+                total.toRupiah(),
                 style: GoogleFonts.poppins(
                     textStyle: const TextStyle(
                         fontSize: 14,
@@ -238,22 +241,48 @@ class RekapHarianprodukView extends GetView<RekapHarianprodukController> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              Obx(
+                () => Text(
+                  DateFormat("dd-MM-yyyy")
+                      .format(controller.dateRange.value.start)
+                      .toString(),
+                  style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal)),
+                ),
+              ),
               Text(
-                '2023-06-11 - 2023-12-11 ',
+                ' - ',
                 style: GoogleFonts.poppins(
                     textStyle: const TextStyle(
                         fontSize: 14,
                         color: Colors.black,
                         fontWeight: FontWeight.normal)),
               ),
+              Obx(
+                () => Text(
+                  DateFormat("dd-MM-yyyy")
+                      .format(controller.dateRange.value.end)
+                      .toString(),
+                  style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal)),
+                ),
+              ),
               Align(
                 alignment: AlignmentDirectional(0.00, -1.00),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
-                  child: Icon(
-                    Icons.keyboard_arrow_down,
-                    color: Colors.black,
-                    size: 24,
+                  child: IconButton(
+                    icon: Icon(Icons.keyboard_arrow_down, color: Colors.black),
+                    onPressed: () {
+                      controller.chooseDateRange();
+                    },
+                    iconSize: 24,
                   ),
                 ),
               ),

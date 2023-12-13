@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -16,7 +17,7 @@ class RekapHarianView extends GetView<RekapHarianController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () => rekapHarianController.loadRekapHarian(),
+        onRefresh: () => rekapHarianController.loadRekapHarianAll(),
         child: CustomScrollView(
           slivers: [
             SliverList(
@@ -160,9 +161,7 @@ class RekapHarianView extends GetView<RekapHarianController> {
                           )
                         ],
                       ),
-                      Divider(
-                        color: Colors.black,
-                      ),
+                      Divider(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -314,7 +313,7 @@ class RekapHarianView extends GetView<RekapHarianController> {
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.14,
+        height: MediaQuery.of(context).size.height * 0.15,
         decoration: BoxDecoration(
           color: Colors.blue[100],
           borderRadius: BorderRadius.all(
@@ -324,7 +323,7 @@ class RekapHarianView extends GetView<RekapHarianController> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(right: 15, left: 15, top: 10),
+          padding: const EdgeInsets.only(right: 10, left: 10, top: 10),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -337,7 +336,7 @@ class RekapHarianView extends GetView<RekapHarianController> {
                 width: 5,
               ),
               Text(
-                '''RPH (Rekap Pendapatan Harian) Merekap \n semua pendapatan anda tiap harinya \n yang memungkinkan anda jika terdapat \n rekap harian, yaitu dengan cara pilih \n "2023-03-01"
+                '''RPH (Rekap Pendapatan Harian) merekap \nsemua pendapatan anda tiap harinya \nyang memungkinkan anda jika terdapat \nrekap harian, yaitu dengan cara pilih \n"2023-03-01"
             ''',
                 style: GoogleFonts.poppins(
                   textStyle: const TextStyle(
@@ -377,7 +376,7 @@ class RekapHarianView extends GetView<RekapHarianController> {
                 style: GoogleFonts.poppins(
                     textStyle: const TextStyle(
                         fontSize: 14,
-                        color: Colors.black,
+                        color: Color.fromARGB(255, 16, 99, 224),
                         fontWeight: FontWeight.w600)),
               ),
             ],
@@ -389,22 +388,48 @@ class RekapHarianView extends GetView<RekapHarianController> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              Obx(
+                () => Text(
+                  DateFormat("dd-MM-yyyy")
+                      .format(controller.dateRange.value.start)
+                      .toString(),
+                  style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal)),
+                ),
+              ),
               Text(
-                '2023-06-11 - 2023-12-11 ',
+                ' - ',
                 style: GoogleFonts.poppins(
                     textStyle: const TextStyle(
                         fontSize: 14,
                         color: Colors.black,
                         fontWeight: FontWeight.normal)),
               ),
+              Obx(
+                () => Text(
+                  DateFormat("dd-MM-yyyy")
+                      .format(controller.dateRange.value.end)
+                      .toString(),
+                  style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal)),
+                ),
+              ),
               Align(
                 alignment: AlignmentDirectional(0.00, -1.00),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
-                  child: Icon(
-                    Icons.keyboard_arrow_down,
-                    color: Colors.black,
-                    size: 24,
+                  child: IconButton(
+                    icon: Icon(Icons.keyboard_arrow_down, color: Colors.black),
+                    onPressed: () {
+                      controller.chooseDateRange();
+                    },
+                    iconSize: 24,
                   ),
                 ),
               ),

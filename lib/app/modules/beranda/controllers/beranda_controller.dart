@@ -9,7 +9,7 @@ import '../../../data/providers/penghasilan_provider.dart';
 class BerandaController extends GetxController {
   //TODO: Implement BerandaController
   final penghasilanProvider = PenghasilanProvider().obs;
-  final CountProvider = countProvider().obs;
+  final cProvider = countProvider().obs;
   final isLoading = false.obs; // Tambahkan isLoading
   Rx<Penghasilan> penghasilan = Penghasilan().obs;
   Rx<Count> dilayani = Count().obs;
@@ -52,7 +52,7 @@ class BerandaController extends GetxController {
   Future<void> loadDilayaniSelesai() async {
     try {
       isLoading(true);
-      Count result = await CountProvider.value.loadCount();
+      Count result = await cProvider.value.loadCount();
       dilayani(result);
       isLoading(false);
       update();

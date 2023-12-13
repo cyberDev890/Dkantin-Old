@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../controllers/riwayat_controller.dart';
+import '../riwayat_screen/views/riwayat_screen_view.dart';
 
 class RiwayatView extends GetView<RiwayatController> {
   RiwayatView({Key? key}) : super(key: key);
@@ -87,7 +88,7 @@ class RiwayatView extends GetView<RiwayatController> {
             child: TabBarView(
                 controller: riwayatController.tabController,
                 children: [
-                  LaporanView(),
+                  RiwayatScreenView(),
                   RekapHarianView(),
                   RekapHarianprodukView()
                 ]),

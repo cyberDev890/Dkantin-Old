@@ -7,11 +7,31 @@ import '../../repository/services.dart';
 import '../models/rekapHarianProduk.dart';
 
 class RekapHarianProdukProv extends GetxController {
-  Future<RekapharianProduk> loadDataRHP() async {
+  Future<RekapharianProduk> loadDataRHPall() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
     final response = await http.get(
       Uri.parse(Api.rhp),
+      headers: {
+        'Authorization':
+            'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return RekapharianProduk.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Gagal memuat data');
+    }
+  }
+
+
+  Future<RekapharianProduk> loadDataRHP(
+      String searchFrom, String searchTo) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    final response = await http.get(
+      Uri.parse("${Api.rph}?searchFrom=$searchFrom&searchTo=$searchTo"),
       headers: {
         'Authorization':
             'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai

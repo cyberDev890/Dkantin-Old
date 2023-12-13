@@ -122,7 +122,7 @@ class LoginView extends GetView<LoginController> {
                                 String? token =
                                     sharedPreferences.getString('tokenFcm');
                                 print("login clicked");
-                                print(token);
+                                print("inifcm$token");
                                 controller.login(
                                     controller.emailController.text,
                                     controller.passwordController.text,
