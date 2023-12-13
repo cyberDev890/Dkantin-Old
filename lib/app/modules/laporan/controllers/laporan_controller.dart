@@ -12,6 +12,7 @@ class LaporanController extends GetxController {
   final count = 0.obs;
   var date = "semua".obs;
   var total = "Rp.0".obs;
+  var isSemua = true.obs;
 
   // Nullable observable variables to store Riwayat
   Rxn<DateTime>? dateNow;
@@ -59,9 +60,11 @@ class LaporanController extends GetxController {
     print("jalan ni fungsi");
     final prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
-    print(token);
-    print(dateNow!.value.toString());
-    print(dateTo!.value.toString());
+    if (isSemua.value) {
+      dateNow = null;
+      dateTo = null;
+      date.value = "semua";
+    }
     if (token != null) {
       var response = await riwayatProvider.value.fetchDataRiwayat(
         token: token,
@@ -78,11 +81,14 @@ class LaporanController extends GetxController {
 
   void setDateFrom(value) {
     print("set from");
+    dateNow = Rxn<DateTime>();
+
     dateNow!.value = value;
   }
 
   void setDateTo(value) {
     print("set to");
+    dateTo = Rxn<DateTime>();
     dateTo!.value = value;
   }
 }
