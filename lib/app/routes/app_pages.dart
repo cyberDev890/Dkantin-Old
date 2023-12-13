@@ -40,7 +40,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PESANAN,
-      page: () => const PesananView(),
+      page: () => PesananView(),
       binding: PesananBinding(),
     ),
     GetPage(
@@ -80,7 +80,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.REKAP_HARIANPRODUK,
-      page: () =>  RekapHarianprodukView(),
+      page: () => RekapHarianprodukView(),
       binding: RekapHarianprodukBinding(),
     ),
     GetPage(

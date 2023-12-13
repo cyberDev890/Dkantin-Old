@@ -1,5 +1,6 @@
 import 'package:dikantin_o_l_d/app/services/notification_service.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashController extends GetxController {
   //TODO: Implement SplashController
@@ -8,7 +9,12 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    NotificationService fcmService =  NotificationService();
+    // TODO: Initialize any other necessary services or variables
+    _initializeFirebaseMessaging();
+  }
+
+  void _initializeFirebaseMessaging() {
+    NotificationService fcmService = NotificationService();
     fcmService.requestNotificationPermission();
     fcmService.forgroundMessage();
     fcmService.firebaseInit(Get.context!);
@@ -16,17 +22,39 @@ class SplashController extends GetxController {
     fcmService.isTokenRefresh();
 
     fcmService.getDeviceToken().then((value) {
-      print("token fcm service" + value);
+      print("token fcm service: $value");
     });
   }
 
   @override
-  void onReady() {
+  Future<void> onReady() async {
     super.onReady();
     print('SplashController onReady called');
 
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token == null) {
+      _navigateToLogin();
+    } else {
+      _navigateToNavigation();
+    }
+  }
+
+  void _navigateToLogin() {
     Future.delayed(Duration(seconds: 3), () {
       Get.offAllNamed('/login');
+    });
+  }
+
+  void _navigateToNavigation() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Future.delayed(Duration(seconds: 3), () {
+      if (prefs.getString('token') != null) {
+        Get.offAllNamed('/navigation');
+      } else {
+        _navigateToLogin();
+      }
     });
   }
 
