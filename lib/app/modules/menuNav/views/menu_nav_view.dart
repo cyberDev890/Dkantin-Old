@@ -138,7 +138,7 @@ class MenuNavView extends GetView<MenuNavController> {
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             final menuDatas = menuNavController.menuData.data![index];
-            final harga = menuDatas.hargaPokok ?? 0;
+            final hargaPokok = menuDatas.hargaPokok ?? 0;
             return Padding(
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: Card(
@@ -188,7 +188,7 @@ class MenuNavView extends GetView<MenuNavController> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(harga.toRupiah(),
+                                    Text(hargaPokok.toRupiah(),
                                         style: GoogleFonts.poppins(
                                           fontSize: 14,
                                           color: Colors.red,

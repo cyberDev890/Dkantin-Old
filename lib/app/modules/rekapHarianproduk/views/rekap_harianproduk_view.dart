@@ -98,9 +98,11 @@ class RekapHarianprodukView extends GetView<RekapHarianprodukController> {
               itemBuilder: (BuildContext context, int index) {
                 final rekapMenu =
                     rekapHarianController.rekapPendapatanharian.data![index];
+                final totalQty = int.parse(rekapMenu.totalQty.toString());
 
                 final harga = rekapMenu.harga ?? 0;
-                final hargaPendapatan = rekapMenu.totalPendapatan ?? 0;
+                final hargaPendapatan = harga * totalQty;
+
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(

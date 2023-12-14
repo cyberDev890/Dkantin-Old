@@ -1,8 +1,10 @@
 // views/riwayat_screen_view.dart
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:dikantin_o_l_d/app/repository/formatRupiah.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../../../laporan/controllers/laporan_controller.dart';
@@ -20,6 +22,8 @@ class RiwayatScreenView extends GetView<LaporanController> {
         body: FutureBuilder(
           future: controller.fetchRiwayat(),
           builder: (context, snapshot) {
+            final totalKeseluruhan =
+                controller.riwayatData.value!.data.dataTotal ?? 0;
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(),
@@ -28,7 +32,7 @@ class RiwayatScreenView extends GetView<LaporanController> {
               return Obx(() => Column(
                     children: [
                       Text(
-                        "Rp.${controller.riwayatData.value!.data.dataTotal}",
+                        totalKeseluruhan.toRupiah(),
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 30,
@@ -36,7 +40,10 @@ class RiwayatScreenView extends GetView<LaporanController> {
                       ),
                       Text(
                         'Total Keseluruhan',
-                        style: TextStyle(fontSize: 12),
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          color: Colors.black,
+                        ),
                       ),
                       SizedBox(
                         height: 10,
@@ -46,14 +53,19 @@ class RiwayatScreenView extends GetView<LaporanController> {
                         children: [
                           Text(
                             'List Riwayat',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
+                            style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              color: Colors.black,
+                            ),
                           ),
                           Row(
                             children: [
                               Obx(() => Text(
                                     controller.date.value,
-                                    style: TextStyle(fontSize: 15),
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 15,
+                                      color: Colors.black,
+                                    ),
                                   )),
                               IconButton(
                                 onPressed: () {
@@ -62,6 +74,7 @@ class RiwayatScreenView extends GetView<LaporanController> {
                                 icon: Icon(
                                   Icons.keyboard_arrow_down_outlined,
                                   color: Colors.blue,
+                                  size: 35,
                                 ),
                               )
                             ],
@@ -118,8 +131,7 @@ class RiwayatScreenView extends GetView<LaporanController> {
                                       .dataRiwayat[index].modelPembayaran ??
                                   'null',
                               harga: controller.riwayatData.value!.data
-                                  .dataRiwayat[index].harga
-                                  .toString(),
+                                  .dataRiwayat[index].harga,
                             );
                           },
                         ),
@@ -162,9 +174,8 @@ class RiwayatScreenView extends GetView<LaporanController> {
                           controller
                               .setDateTo(DateTime.parse(dateToController.text));
                           DateFormat formatter = DateFormat('yyyy-MM-dd');
-                          controller.date.value = "${formatter.format(
-                                  DateTime.parse(dateFromController.text))}-${formatter.format(
-                                  DateTime.parse(dateToController.text))}";
+                          controller.date.value =
+                              "${formatter.format(DateTime.parse(dateFromController.text))}-${formatter.format(DateTime.parse(dateToController.text))}";
                         }
 
                         await controller.fetchRiwayat();
@@ -284,7 +295,7 @@ class RiwayatCard extends StatelessWidget {
   String subTotalPerItem;
   String total;
   String status;
-  String harga;
+  int harga;
 
   RiwayatCard(
       {super.key,
@@ -318,24 +329,81 @@ class RiwayatCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Pembayaran:  ${this.typePembayaran}"),
+              Text(
+                "Pembayaran:  ${this.typePembayaran}",
+                style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500),
+              ),
               Text(
                 'Rp.${this.subTotalPerItem}',
-                style: TextStyle(color: Colors.blue),
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  color: Colors.blue,
+                ),
               )
             ],
           ),
           Divider(),
-          Text(this.tanggal),
-          Text('nomor transaksi : ${this.transaksi}'),
-          Text('${this.namaMenu} x${this.qty}'),
+          Text(
+            this.tanggal,
+            style: GoogleFonts.poppins(
+              fontSize: 14,
+              color: Colors.black,
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            'Nomor transaksi : ${this.transaksi}',
+            style: GoogleFonts.poppins(
+              fontSize: 14,
+              color: Colors.black,
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Rp.${this.harga}'),
+              Text(
+                '${this.namaMenu} ',
+                style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w400),
+              ),
+              Text(
+                'x ${this.qty} ',
+                style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                this.harga.toRupiah(),
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  color: Colors.black,
+                ),
+              ),
               Text(
                 'Status: ${this.status}',
-                style: TextStyle(color: Colors.blue),
+                style: GoogleFonts.poppins(
+                  fontSize: 15,
+                  color: Colors.blue,
+                ),
               )
             ],
           ),
