@@ -596,7 +596,7 @@ class PesananView extends GetView<PesananController> {
                                   )
                                 ],
                               ),
-                              menuData.catatan == ''
+                              menuData.catatan == '' || menuData.catatan == null
                                   ? Text('')
                                   : Padding(
                                       padding: const EdgeInsets.only(
