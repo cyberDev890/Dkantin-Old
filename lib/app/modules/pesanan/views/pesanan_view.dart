@@ -178,7 +178,7 @@ class PesananView extends GetView<PesananController> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              left: 5, right: 5, top: 5, bottom: 10),
+                              left: 3, right: 3, top: 5, bottom: 10),
                           child: Column(
                             children: [
                               Row(
@@ -597,7 +597,7 @@ class PesananView extends GetView<PesananController> {
                                 ],
                               ),
                               menuData.catatan == '' || menuData.catatan == null
-                                  ? Text('')
+                                  ? SizedBox()
                                   : Padding(
                                       padding: const EdgeInsets.only(
                                           left: 10, bottom: 2),
