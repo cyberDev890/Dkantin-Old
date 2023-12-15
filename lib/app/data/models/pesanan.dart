@@ -33,6 +33,7 @@ class Data {
   String? idDetail;
   String? tanggal;
   String? kodeTr;
+  String? catatan;
   String? pembeli;
   String? noTeleponPembeli;
   String? modelPembayaran;
@@ -51,6 +52,7 @@ class Data {
       this.idDetail,
       this.tanggal,
       this.kodeTr,
+      this.catatan,
       this.pembeli,
       this.noTeleponPembeli,
       this.modelPembayaran,
@@ -69,6 +71,7 @@ class Data {
     idDetail = json['id_detail'];
     tanggal = json['tanggal'];
     kodeTr = json['kode_tr'];
+    catatan = json['catatan'];
     pembeli = json['pembeli'];
     noTeleponPembeli = json['no_telepon_pembeli'];
     modelPembayaran = json['model_pembayaran'];
@@ -89,6 +92,7 @@ class Data {
     data['id_detail'] = idDetail;
     data['tanggal'] = tanggal;
     data['kode_tr'] = kodeTr;
+    data['catatan'] = catatan;
     data['pembeli'] = pembeli;
     data['no_telepon_pembeli'] = noTeleponPembeli;
     data['model_pembayaran'] = modelPembayaran;

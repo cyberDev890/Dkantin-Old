@@ -19,7 +19,7 @@ class LaporanController extends GetxController {
   Rxn<DateTime>? dateTo;
 
   // Observable variable to store Riwayat
-  var riwayatData = Rxn<Riwayat>();
+  var riwayatData = Rxn<RiwayatLaporan>();
 
   LaporanController() {
     // Initialize dateNow and dateTo to null
@@ -71,9 +71,10 @@ class LaporanController extends GetxController {
         dateStart: dateNow?.value?.toLocal().toString().split(' ')[0],
         dateEnd: dateTo?.value?.toLocal().toString().split(' ')[0],
       );
-      print(response.body);
+      print(response);
       // Parse and store Riwayat in the observable variable
-      riwayatData.value = Riwayat.fromJson(jsonDecode(response.body));
+      riwayatData.value = RiwayatLaporan.fromJson(jsonDecode(response.body));
+      print(riwayatData.value);
     } else {
       Get.snackbar('Error', 'Terjadi kesalahan session. Silahkan login ulang.');
     }

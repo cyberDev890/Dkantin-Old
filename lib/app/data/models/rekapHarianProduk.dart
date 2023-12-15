@@ -35,7 +35,7 @@ class Data {
   String? nama;
   int? harga;
   String? totalQty;
-  String? totalPendapatan;
+  int? totalPendapatan;
 
   Data(
       {this.idMenu,

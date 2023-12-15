@@ -20,6 +20,7 @@ class RekapHarianController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    loadRekapHarian();
     refreshData();
     loadRekapHarianAll();
   }
@@ -35,6 +36,19 @@ class RekapHarianController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  Future<void> loadRekapHarian() async {
+    try {
+      isLoading(true);
+      final result = await rekapProvider.value.loadDataRPHall();
+      rekapPendapatanharian = result;
+      rekapData.assignAll(result.data!);
+      isLoading(false);
+    } catch (error) {
+      isLoading(false);
+      print('Error fetching data: $error');
+    }
+  }
 
   Future<void> refreshData() async {
     await searchRekapHarian('', '');

@@ -120,70 +120,7 @@ class ProfilView extends GetView<ProfilController> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: MediaQuery.of(context).size.height / 8,
-                        ),
-                        Container(
-                          height: 55,
-                          width: 295,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0x3f000000),
-                                offset: Offset(4, 4),
-                                blurRadius: 5,
-                              ),
-                            ],
-                          ),
-                          child: ListTile(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            tileColor: Colors.white,
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 2.0),
-                            leading: Container(
-                              width: 40,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Icon(
-                                CarbonIcons.user_avatar,
-                                color: Colors.black,
-                              ),
-                            ),
-                            title: Container(
-                              child: Text(
-                                "Ubah Akun",
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                ),
-                              ),
-                            ),
-                            trailing: Container(
-                              width: 40,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                // color: Colors.blue.shade50,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: IconButton(
-                                icon: Icon(
-                                  CarbonIcons.play_outline_filled,
-                                  color: Colors.blue,
-                                ),
-                                onPressed: () async {
-                                  // await ModalService.showModal(context);
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
+                          height: MediaQuery.of(context).size.height / 7,
                         ),
                         GestureDetector(
                           onTap: () {

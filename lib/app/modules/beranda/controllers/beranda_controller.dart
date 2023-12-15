@@ -9,7 +9,7 @@ import '../../../data/providers/penghasilan_provider.dart';
 class BerandaController extends GetxController {
   //TODO: Implement BerandaController
   final penghasilanProvider = PenghasilanProvider().obs;
-  final CountProvider = countProvider().obs;
+  final cProvider = countProvider().obs;
   final isLoading = false.obs; // Tambahkan isLoading
   Rx<Penghasilan> penghasilan = Penghasilan().obs;
   Rx<Count> dilayani = Count().obs;
@@ -20,14 +20,14 @@ class BerandaController extends GetxController {
   void onInit() {
     super.onInit();
     getToken();
-    loadPenghasilan();
+    loadPenghasilanbulanan();
     loadDilayaniSelesai();
   }
 
   @override
   void onReady() {
     super.onReady();
-    loadPenghasilan();
+    loadPenghasilanbulanan();
   }
 
   @override
@@ -35,13 +35,14 @@ class BerandaController extends GetxController {
     super.onClose();
   }
 
-  Future<void> loadPenghasilan() async {
+  Future<void> loadPenghasilanbulanan() async {
     try {
       isLoading(true);
       Penghasilan result = await penghasilanProvider.value.loadPenghasilan();
       penghasilan(result);
       isLoading(false);
       update();
+      print('shapp');
     } catch (error) {
       isLoading(false);
       print('Error fetching datad: $error');
@@ -51,7 +52,7 @@ class BerandaController extends GetxController {
   Future<void> loadDilayaniSelesai() async {
     try {
       isLoading(true);
-      Count result = await CountProvider.value.loadCount();
+      Count result = await cProvider.value.loadCount();
       dilayani(result);
       isLoading(false);
       update();

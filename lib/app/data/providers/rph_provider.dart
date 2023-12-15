@@ -7,6 +7,7 @@ import '../../repository/services.dart';
 import '../models/RekapHarian.dart';
 
 class RekapPendapatanHarian extends GetxController {
+
   Future<RekapPendapatanharian> loadDataRPHall() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');

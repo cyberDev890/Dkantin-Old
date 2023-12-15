@@ -8,7 +8,7 @@ import '../controllers/beranda_controller.dart';
 
 class BerandaView extends GetView<BerandaController> {
   BerandaView({Key? key}) : super(key: key);
-  final BerandaController berandaController = Get.put(BerandaController());
+  final BerandaController berandaController = Get.find<BerandaController>();
   @override
   Widget build(BuildContext context) {
     final penjualanBulanIni =
@@ -236,8 +236,17 @@ class BerandaView extends GetView<BerandaController> {
                           child: Container(
                             width: 200,
                             decoration: BoxDecoration(
-                              color: Colors.blue[300],
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: Offset(0,
+                                      3), // changes the position of the shadow
+                                ),
+                              ],
                             ),
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
@@ -248,7 +257,7 @@ class BerandaView extends GetView<BerandaController> {
                                 children: [
                                   Icon(
                                     Icons.receipt_rounded,
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     size: 44,
                                   ),
                                   Padding(
@@ -262,7 +271,7 @@ class BerandaView extends GetView<BerandaController> {
                                             '0',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            color: Colors.white,
+                                            color: Colors.black,
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18),
                                       ),
@@ -272,7 +281,7 @@ class BerandaView extends GetView<BerandaController> {
                                     'Dilayani',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        color: Colors.white,
+                                        color: Colors.black,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15),
                                   ),
@@ -290,8 +299,17 @@ class BerandaView extends GetView<BerandaController> {
                           child: Container(
                             width: 200,
                             decoration: BoxDecoration(
-                              color: Colors.blue[300],
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: Offset(0,
+                                      3), // changes the position of the shadow
+                                ),
+                              ],
                             ),
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
@@ -303,7 +321,7 @@ class BerandaView extends GetView<BerandaController> {
                                 children: [
                                   Icon(
                                     Icons.ssid_chart_rounded,
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     size: 44,
                                   ),
                                   Padding(
@@ -317,7 +335,7 @@ class BerandaView extends GetView<BerandaController> {
                                             '0',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            color: Colors.white,
+                                            color: Colors.black,
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18),
                                       ),
@@ -327,7 +345,7 @@ class BerandaView extends GetView<BerandaController> {
                                     'Selesai',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        color: Colors.white,
+                                        color: Colors.black,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15),
                                   ),

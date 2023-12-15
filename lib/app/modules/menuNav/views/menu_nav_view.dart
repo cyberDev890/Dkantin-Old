@@ -65,9 +65,10 @@ class MenuNavView extends GetView<MenuNavController> {
               delegate: SliverChildListDelegate([
                 Center(
                     child: Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
+                  padding: const EdgeInsets.only(
+                      left: 15, right: 15, top: 20, bottom: 10),
                   child: Text(
-                    "Untuk mengganti ketersediaan menu, silahkan klik tombol ada atau tidak ada",
+                    "Untuk mengganti ketersediaan menu, silahkan klik tombol Tersedia atau Habis",
                     style: GoogleFonts.poppins(
                       textStyle: const TextStyle(
                         fontSize: 14,
@@ -137,7 +138,7 @@ class MenuNavView extends GetView<MenuNavController> {
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             final menuDatas = menuNavController.menuData.data![index];
-            final harga = menuDatas.harga ?? 0;
+            final hargaPokok = menuDatas.hargaPokok ?? 0;
             return Padding(
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: Card(
@@ -187,7 +188,7 @@ class MenuNavView extends GetView<MenuNavController> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(harga.toRupiah(),
+                                    Text(hargaPokok.toRupiah(),
                                         style: GoogleFonts.poppins(
                                           fontSize: 14,
                                           color: Colors.red,

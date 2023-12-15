@@ -12,7 +12,7 @@ import '../controllers/rekap_harian_controller.dart';
 class RekapHarianView extends GetView<RekapHarianController> {
   RekapHarianView({Key? key}) : super(key: key);
   final RekapHarianController rekapHarianController =
-      Get.put(RekapHarianController());
+      Get.find<RekapHarianController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,10 +121,10 @@ class RekapHarianView extends GetView<RekapHarianController> {
                               child: Row(
                             children: [
                               Text(
-                                'Tgl:${rekapMenu.tanggalTransaksi}',
+                                'Tgl: ${rekapMenu.tanggalTransaksi}',
                                 style: GoogleFonts.poppins(
                                   textStyle: const TextStyle(
-                                    fontSize: 12,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.black,
                                   ),
@@ -138,10 +138,10 @@ class RekapHarianView extends GetView<RekapHarianController> {
                                 width: 5,
                               ),
                               Text(
-                                '${rekapMenu.jumlahTransaksi}Transaksi',
+                                '${rekapMenu.jumlahTransaksi} Transaksi',
                                 style: GoogleFonts.poppins(
                                   textStyle: const TextStyle(
-                                    fontSize: 12,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.black,
                                   ),
@@ -175,10 +175,10 @@ class RekapHarianView extends GetView<RekapHarianController> {
                               ),
                             ),
                             child: Text(
-                              ' POLIJE PAY:${rekapMenu.polijepay} ',
+                              ' POLIJE PAY: ${rekapMenu.polijepay} ',
                               style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                 ),
@@ -195,10 +195,10 @@ class RekapHarianView extends GetView<RekapHarianController> {
                               ),
                             ),
                             child: Text(
-                              ' TRANSFER:${rekapMenu.transferbank} ',
+                              ' TRANSFER: ${rekapMenu.transferbank} ',
                               style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                 ),
@@ -215,10 +215,10 @@ class RekapHarianView extends GetView<RekapHarianController> {
                               ),
                             ),
                             child: Text(
-                              ' GOPAY:${rekapMenu.gopay}',
+                              ' GOPAY: ${rekapMenu.gopay}',
                               style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                 ),
@@ -243,10 +243,10 @@ class RekapHarianView extends GetView<RekapHarianController> {
                               ),
                             ),
                             child: Text(
-                              ' QRIS:${rekapMenu.qris}',
+                              ' QRIS: ${rekapMenu.qris}',
                               style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                 ),
@@ -263,10 +263,10 @@ class RekapHarianView extends GetView<RekapHarianController> {
                               ),
                             ),
                             child: Text(
-                              ' CASH:${rekapMenu.cash}',
+                              ' CASH: ${rekapMenu.cash}',
                               style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                 ),
@@ -335,14 +335,18 @@ class RekapHarianView extends GetView<RekapHarianController> {
               SizedBox(
                 width: 5,
               ),
-              Text(
-                '''RPH (Rekap Pendapatan Harian) merekap \nsemua pendapatan anda tiap harinya \nyang memungkinkan anda jika terdapat \nrekap harian, yaitu dengan cara pilih \n"2023-03-01"
-            ''',
-                style: GoogleFonts.poppins(
-                  textStyle: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
+              Container(
+                width: MediaQuery.of(context).size.width * 0.80,
+                child: Text(
+                  textAlign: TextAlign.justify,
+                  '''RPH (Rekap Pendapatan Harian) Merekap semua pendapatan anda tiap harinya yang memungkinkan anda jika terdapat rekap harian, yaitu dengan cara pilih "2023-03-01"
+                          ''',
+                  style: GoogleFonts.poppins(
+                    textStyle: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ),
@@ -389,35 +393,42 @@ class RekapHarianView extends GetView<RekapHarianController> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Obx(
-                () => Text(
-                  DateFormat("dd-MM-yyyy")
-                      .format(controller.dateRange.value.start)
-                      .toString(),
-                  style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontWeight: FontWeight.normal)),
-                ),
-              ),
-              Text(
-                ' - ',
-                style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.black,
-                        fontWeight: FontWeight.normal)),
-              ),
-              Obx(
-                () => Text(
-                  DateFormat("dd-MM-yyyy")
-                      .format(controller.dateRange.value.end)
-                      .toString(),
-                  style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontWeight: FontWeight.normal)),
+                () => InkWell(
+                  onTap: () {
+                    controller.chooseDateRange();
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        DateFormat("dd-MM-yyyy")
+                            .format(controller.dateRange.value.start)
+                            .toString(),
+                        style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal)),
+                      ),
+                      Text(
+                        ' - ',
+                        style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal)),
+                      ),
+                      Text(
+                        DateFormat("dd-MM-yyyy")
+                            .format(controller.dateRange.value.end)
+                            .toString(),
+                        style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal)),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Align(

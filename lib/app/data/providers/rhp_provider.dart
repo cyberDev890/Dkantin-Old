@@ -25,6 +25,7 @@ class RekapHarianProdukProv extends GetxController {
     }
   }
 
+
   Future<RekapharianProduk> loadDataRHP(
       String searchFrom, String searchTo) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

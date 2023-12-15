@@ -8,6 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../data/models/rekapHarianProduk.dart';
 import '../../../data/providers/rhp_provider.dart';
 
+import '../../../data/models/rekapHarianProduk.dart';
+import '../../../data/providers/rhp_provider.dart';
+
 class RekapHarianprodukController extends GetxController {
   final isLoading = false.obs; // Tambahkan isLoading
   final dataRekapPendapatanHarain = RekapHarianProduk().obs;
@@ -24,6 +27,7 @@ class RekapHarianprodukController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
     refreshData();
     loadHarianProdukAll();
   }
