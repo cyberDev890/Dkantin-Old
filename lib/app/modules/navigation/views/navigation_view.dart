@@ -1,6 +1,7 @@
 import 'package:carbon_icons/carbon_icons.dart';
 import 'package:dikantin_o_l_d/app/modules/beranda/views/beranda_view.dart';
 import 'package:dikantin_o_l_d/app/modules/menuNav/views/menu_nav_view.dart';
+import 'package:dikantin_o_l_d/app/modules/pesanan/controllers/pesanan_controller.dart';
 import 'package:dikantin_o_l_d/app/modules/pesanan/views/pesanan_view.dart';
 import 'package:dikantin_o_l_d/app/modules/profil/views/profil_view.dart';
 import 'package:dikantin_o_l_d/app/modules/riwayat/views/riwayat_view.dart';
@@ -16,6 +17,7 @@ class NavigationView extends GetView<NavigationController> {
   NavigationView({Key? key}) : super(key: key);
   final BerandaController berandaController = Get.put(BerandaController());
   final MenuNavController menuNavController = Get.put(MenuNavController());
+  final PesananController pesananController = Get.put(PesananController());
   final NavigationController navigationController =
       Get.put(NavigationController());
 
@@ -120,6 +122,8 @@ class NavigationView extends GetView<NavigationController> {
           } else if (tabIndex == 0) {
             berandaController.loadPenghasilan();
             berandaController.loadDilayaniSelesai();
+          } else if (tabIndex == 2) {
+            pesananController.loadPesananKantin();
           }
         },
         child: Column(

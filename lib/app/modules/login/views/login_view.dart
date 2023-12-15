@@ -121,8 +121,8 @@ class LoginView extends GetView<LoginController> {
                                     await SharedPreferences.getInstance();
                                 String? token =
                                     sharedPreferences.getString('tokenFcm');
-                                print("login clicked");
                                 print(token);
+                                print("login clicked");
                                 controller.login(
                                     controller.emailController.text,
                                     controller.passwordController.text,

@@ -13,18 +13,7 @@ class SplashController extends GetxController {
     _initializeFirebaseMessaging();
   }
 
-  void _initializeFirebaseMessaging() {
-    NotificationService fcmService = NotificationService();
-    fcmService.requestNotificationPermission();
-    fcmService.forgroundMessage();
-    fcmService.firebaseInit(Get.context!);
-    fcmService.setupInteractMessage(Get.context!);
-    fcmService.isTokenRefresh();
-
-    fcmService.getDeviceToken().then((value) {
-      print("token fcm service: $value");
-    });
-  }
+  void _initializeFirebaseMessaging() {}
 
   @override
   Future<void> onReady() async {
