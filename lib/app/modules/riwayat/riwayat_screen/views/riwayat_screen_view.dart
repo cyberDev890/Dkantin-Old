@@ -22,17 +22,16 @@ class RiwayatScreenView extends GetView<LaporanController> {
         body: FutureBuilder(
           future: controller.fetchRiwayat(),
           builder: (context, snapshot) {
-            final totalKeseluruhan =
-                controller.riwayatData.value!.data.dataTotal ?? 0;
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(),
               );
             } else {
+              final total = controller.riwayatData.value!.data.dataTotal ?? 0;
               return Obx(() => Column(
                     children: [
                       Text(
-                        totalKeseluruhan.toRupiah(),
+                        total.toRupiah(),
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 30,
@@ -111,12 +110,16 @@ class RiwayatScreenView extends GetView<LaporanController> {
                               status: controller.riwayatData.value!.data
                                       .dataRiwayat[index].statusPengiriman ??
                                   'null',
-                              subTotalPerItem: controller.riwayatData.value!
-                                      .data.dataRiwayat[index].subtotalBayar
+                              subTotalPerItem: controller
+                                      .riwayatData
+                                      .value!
+                                      .data
+                                      .dataRiwayat[index]
+                                      .subtotalHargapokok
                                       .toString() ??
                                   'null',
                               tanggal: controller.riwayatData.value!.data
-                                      .dataRiwayat[index].createdAt
+                                      .dataRiwayat[index].tanggalTransaksi
                                       .toLocal()
                                       .toString() ??
                                   'null',

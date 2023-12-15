@@ -1,25 +1,26 @@
 // To parse this JSON data, do
 //
-//     final riwayat = riwayatFromJson(jsonString);
+//     final riwayatLaporan = riwayatLaporanFromJson(jsonString);
 
 import 'dart:convert';
 
-Riwayat riwayatFromJson(String str) => Riwayat.fromJson(json.decode(str));
+RiwayatLaporan riwayatLaporanFromJson(String str) =>
+    RiwayatLaporan.fromJson(json.decode(str));
 
-String riwayatToJson(Riwayat data) => json.encode(data.toJson());
+String riwayatLaporanToJson(RiwayatLaporan data) => json.encode(data.toJson());
 
-class Riwayat {
+class RiwayatLaporan {
   Data data;
   int code;
   bool status;
 
-  Riwayat({
+  RiwayatLaporan({
     required this.data,
     required this.code,
     required this.status,
   });
 
-  factory Riwayat.fromJson(Map<String, dynamic> json) => Riwayat(
+  factory RiwayatLaporan.fromJson(Map<String, dynamic> json) => RiwayatLaporan(
         data: Data.fromJson(json["data"]),
         code: json["code"],
         status: json["status"],
@@ -34,7 +35,7 @@ class Riwayat {
 
 class Data {
   List<DataRiwayat> dataRiwayat;
-  int? dataTotal;
+  int dataTotal;
 
   Data({
     required this.dataRiwayat,
@@ -55,11 +56,11 @@ class Data {
 
 class DataRiwayat {
   String kodeTr;
-  DateTime createdAt;
+  DateTime tanggalTransaksi;
   String nama;
   int harga;
   int qty;
-  int subtotalBayar;
+  int subtotalHargapokok;
   String statusPengiriman;
   String customerName;
   String noTelepon;
@@ -68,11 +69,11 @@ class DataRiwayat {
 
   DataRiwayat({
     required this.kodeTr,
-    required this.createdAt,
+    required this.tanggalTransaksi,
     required this.nama,
     required this.harga,
     required this.qty,
-    required this.subtotalBayar,
+    required this.subtotalHargapokok,
     required this.statusPengiriman,
     required this.customerName,
     required this.noTelepon,
@@ -82,11 +83,11 @@ class DataRiwayat {
 
   factory DataRiwayat.fromJson(Map<String, dynamic> json) => DataRiwayat(
         kodeTr: json["kode_tr"],
-        createdAt: json["tanggal_transaksi"],
+        tanggalTransaksi: DateTime.parse(json["tanggal_transaksi"]),
         nama: json["nama"],
         harga: json["harga"],
         qty: json["QTY"],
-        subtotalBayar: json["subtotal_hargapokok"],
+        subtotalHargapokok: json["subtotal_hargapokok"],
         statusPengiriman: json["status_pengiriman"],
         customerName: json["customer_name"],
         noTelepon: json["no_telepon"],
@@ -96,11 +97,12 @@ class DataRiwayat {
 
   Map<String, dynamic> toJson() => {
         "kode_tr": kodeTr,
-        "created_at": createdAt.toIso8601String(),
+        "tanggal_transaksi":
+            "${tanggalTransaksi.year.toString().padLeft(4, '0')}-${tanggalTransaksi.month.toString().padLeft(2, '0')}-${tanggalTransaksi.day.toString().padLeft(2, '0')}",
         "nama": nama,
         "harga": harga,
         "QTY": qty,
-        "subtotal_bayar": subtotalBayar,
+        "subtotal_hargapokok": subtotalHargapokok,
         "status_pengiriman": statusPengiriman,
         "customer_name": customerName,
         "no_telepon": noTelepon,

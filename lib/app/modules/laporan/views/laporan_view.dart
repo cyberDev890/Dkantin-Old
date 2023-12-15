@@ -96,12 +96,16 @@ class LaporanView extends GetView<LaporanController> {
                               status: controller.riwayatData.value!.data
                                       .dataRiwayat[index].statusPengiriman ??
                                   'null',
-                              subTotalPerItem: controller.riwayatData.value!
-                                      .data.dataRiwayat[index].subtotalBayar
+                              subTotalPerItem: controller
+                                      .riwayatData
+                                      .value!
+                                      .data
+                                      .dataRiwayat[index]
+                                      .subtotalHargapokok
                                       .toString() ??
                                   'null',
                               tanggal: controller.riwayatData.value!.data
-                                      .dataRiwayat[index].createdAt
+                                      .dataRiwayat[index].tanggalTransaksi
                                       .toLocal()
                                       .toString() ??
                                   'null',
