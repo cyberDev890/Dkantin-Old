@@ -15,27 +15,34 @@ class RekapHarianView extends GetView<RekapHarianController> {
       Get.find<RekapHarianController>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () => rekapHarianController.loadRekapHarianAll(),
-        child: CustomScrollView(
-          slivers: [
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  info(context),
-                  saldo(context),
-                ],
+    final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
+      child: Scaffold(
+        body: RefreshIndicator(
+          onRefresh: () => rekapHarianController.loadRekapHarianAll(),
+          child: CustomScrollView(
+            slivers: [
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    info(context),
+                    saldo(context),
+                  ],
+                ),
               ),
-            ),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  listItems(context),
-                ],
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    listItems(context),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -310,10 +317,12 @@ class RekapHarianView extends GetView<RekapHarianController> {
   }
 
   Widget info(BuildContext context) {
+    final scale = MediaQuery.of(context).textScaleFactor;
+
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.15,
+        // height: MediaQuery.of(context).size.height * 0.15,
         decoration: BoxDecoration(
           color: Colors.blue[100],
           borderRadius: BorderRadius.all(
@@ -336,14 +345,16 @@ class RekapHarianView extends GetView<RekapHarianController> {
                 width: 5,
               ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.80,
+                // color: Colors.black,
+                // height: MediaQuery.of(context).size.height * 0.16,
+                width: MediaQuery.of(context).size.width * 0.70,
                 child: Text(
                   textAlign: TextAlign.justify,
                   '''RPH (Rekap Pendapatan Harian) Merekap semua pendapatan anda tiap harinya yang memungkinkan anda jika terdapat rekap harian, yaitu dengan cara pilih "2023-03-01"
                           ''',
                   style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                      fontSize: 14,
+                    textStyle: TextStyle(
+                      fontSize: scale <= 1.3 ? 12 : 12,
                       fontWeight: FontWeight.w600,
                       color: Colors.black,
                     ),

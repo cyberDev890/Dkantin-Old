@@ -13,6 +13,9 @@ class RiwayatView extends GetView<RiwayatController> {
   final RiwayatController riwayatController = Get.put(RiwayatController());
   @override
   Widget build(BuildContext context) {
+    final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
     final mediaHeight = MediaQuery.of(context).size.height;
     final myAppbar = AppBar(
       elevation: 5, // Menghilangkan shadow di bawah AppBar
@@ -22,7 +25,7 @@ class RiwayatView extends GetView<RiwayatController> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text(
-              "Pesanan Saya ",
+              "Riwayat Saya ",
               style: GoogleFonts.poppins(
                   textStyle: TextStyle(
                       fontSize: 20,
@@ -77,22 +80,26 @@ class RiwayatView extends GetView<RiwayatController> {
             ),
           )),
     );
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-          appBar: myAppbar,
-          body: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-            ),
-            child: TabBarView(
-                controller: riwayatController.tabController,
-                children: [
-                  RiwayatScreenView(),
-                  RekapHarianView(),
-                  RekapHarianprodukView()
-                ]),
-          )),
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
+      child: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+            appBar: myAppbar,
+            body: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              child: TabBarView(
+                  controller: riwayatController.tabController,
+                  children: [
+                    RiwayatScreenView(),
+                    RekapHarianView(),
+                    RekapHarianprodukView()
+                  ]),
+            )),
+      ),
     );
   }
 }

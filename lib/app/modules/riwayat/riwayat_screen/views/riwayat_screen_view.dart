@@ -15,134 +15,145 @@ class RiwayatScreenView extends GetView<LaporanController> {
   @override
   Widget build(BuildContext context) {
     // Register the controller using Get.put
+    final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
     final controller = Get.put(LaporanController());
-    return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
-      child: Scaffold(
-        body: FutureBuilder(
-          future: controller.fetchRiwayat(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else {
-              final total = controller.riwayatData.value!.data.dataTotal ?? 0;
-              return Obx(() => Column(
-                    children: [
-                      Text(
-                        total.toRupiah(),
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30,
-                            color: Colors.blue),
-                      ),
-                      Text(
-                        'Total Keseluruhan',
-                        style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          color: Colors.black,
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+        child: Scaffold(
+          body: FutureBuilder(
+            future: controller.fetchRiwayat(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                final total = controller.riwayatData.value!.data.dataTotal ?? 0;
+                return Obx(() => Column(
+                      children: [
+                        Text(
+                          total.toRupiah(),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                              color: Colors.blue),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'List Riwayat',
-                            style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              color: Colors.black,
-                            ),
+                        Text(
+                          'Total Keseluruhan',
+                          style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            color: Colors.black,
                           ),
-                          Row(
-                            children: [
-                              Obx(() => Text(
-                                    controller.date.value,
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 15,
-                                      color: Colors.black,
-                                    ),
-                                  )),
-                              IconButton(
-                                onPressed: () {
-                                  _showBottomSheet(context);
-                                },
-                                icon: Icon(
-                                  Icons.keyboard_arrow_down_outlined,
-                                  color: Colors.blue,
-                                  size: 35,
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Expanded(
-                        child: ListView.separated(
-                          separatorBuilder: (context, index) {
-                            return SizedBox(
-                              height: 10,
-                            );
-                          },
-                          padding: EdgeInsets.symmetric(horizontal: 5),
-                          shrinkWrap: true,
-                          itemCount: controller
-                              .riwayatData
-                              .value!
-                              .data
-                              .dataRiwayat
-                              .length, // Replace with the desired number of items
-                          itemBuilder: (context, index) {
-                            return RiwayatCard(
-                              namaMenu: controller.riwayatData.value!.data
-                                      .dataRiwayat[index].nama ??
-                                  'null',
-                              qty: controller.riwayatData.value!.data
-                                      .dataRiwayat[index].qty
-                                      .toString() ??
-                                  'null',
-                              status: controller.riwayatData.value!.data
-                                      .dataRiwayat[index].statusPengiriman ??
-                                  'null',
-                              subTotalPerItem: controller
-                                      .riwayatData
-                                      .value!
-                                      .data
-                                      .dataRiwayat[index]
-                                      .subtotalHargapokok
-                                      .toString() ??
-                                  'null',
-                              tanggal: controller.riwayatData.value!.data
-                                      .dataRiwayat[index].tanggalTransaksi
-                                      .toLocal()
-                                      .toString() ??
-                                  'null',
-                              transaksi: controller.riwayatData.value!.data
-                                      .dataRiwayat[index].kodeTr ??
-                                  'null',
-                              total: controller
-                                      .riwayatData.value!.data.dataTotal
-                                      .toString() ??
-                                  'null',
-                              typePembayaran: controller.riwayatData.value!.data
-                                      .dataRiwayat[index].modelPembayaran ??
-                                  'null',
-                              harga: controller.riwayatData.value!.data
-                                  .dataRiwayat[index].harga,
-                            );
-                          },
                         ),
-                      ),
-                    ],
-                  ));
-            }
-          },
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'List Riwayat',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                color: Colors.black,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Obx(() => Text(
+                                      controller.date.value,
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 15,
+                                        color: Colors.black,
+                                      ),
+                                    )),
+                                IconButton(
+                                  onPressed: () {
+                                    _showBottomSheet(context);
+                                  },
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_down_outlined,
+                                    color: Colors.blue,
+                                    size: 35,
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Expanded(
+                          child: ListView.separated(
+                            separatorBuilder: (context, index) {
+                              return SizedBox(
+                                height: 10,
+                              );
+                            },
+                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            shrinkWrap: true,
+                            itemCount: controller
+                                .riwayatData
+                                .value!
+                                .data
+                                .dataRiwayat
+                                .length, // Replace with the desired number of items
+                            itemBuilder: (context, index) {
+                              return RiwayatCard(
+                                namaMenu: controller.riwayatData.value!.data
+                                        .dataRiwayat[index].nama ??
+                                    'null',
+                                qty: controller.riwayatData.value!.data
+                                        .dataRiwayat[index].qty
+                                        .toString() ??
+                                    'null',
+                                status: controller.riwayatData.value!.data
+                                        .dataRiwayat[index].statusPengiriman ??
+                                    'null',
+                                subTotalPerItem: controller
+                                        .riwayatData
+                                        .value!
+                                        .data
+                                        .dataRiwayat[index]
+                                        .subtotalHargapokok
+                                        .toString() ??
+                                    'null',
+                                tanggal: controller.riwayatData.value!.data
+                                        .dataRiwayat[index].tanggalTransaksi
+                                        .toLocal()
+                                        .toString() ??
+                                    'null',
+                                transaksi: controller.riwayatData.value!.data
+                                        .dataRiwayat[index].kodeTr ??
+                                    'null',
+                                total: controller
+                                        .riwayatData.value!.data.dataTotal
+                                        .toString() ??
+                                    'null',
+                                typePembayaran: controller
+                                        .riwayatData
+                                        .value!
+                                        .data
+                                        .dataRiwayat[index]
+                                        .modelPembayaran ??
+                                    'null',
+                                harga: controller.riwayatData.value!.data
+                                    .dataRiwayat[index].harga,
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ));
+              }
+            },
+          ),
         ),
       ),
     );
