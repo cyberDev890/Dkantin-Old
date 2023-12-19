@@ -154,7 +154,7 @@ class BerandaView extends GetView<BerandaController> {
                           ),
                         ),
                         SizedBox(
-                          height: 5,
+                          height: 3,
                         ),
                         Row(
                           children: [
@@ -199,10 +199,12 @@ class BerandaView extends GetView<BerandaController> {
                               ),
                             ),
                             // Expanded(child: Container()),
-                            Container(
-                              margin: EdgeInsets.only(right: 20),
-                              child: Image.asset("assets/Group_2.png"),
-                            ),
+                            Obx(() => Switch(
+                                  value: berandaController.isSwitchOn.value,
+                                  onChanged: (value) {
+                                    berandaController.toggleSwitch(value);
+                                  },
+                                )),
                           ],
                         ),
                       ],

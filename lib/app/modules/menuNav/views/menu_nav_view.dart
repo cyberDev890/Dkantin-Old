@@ -220,8 +220,8 @@ class MenuNavView extends GetView<MenuNavController> {
                                           )
                                         : ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  Color(0xFF2579FD),
+                                              backgroundColor: Color.fromARGB(
+                                                  255, 253, 37, 37),
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(12),

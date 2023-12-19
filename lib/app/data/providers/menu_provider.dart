@@ -63,4 +63,38 @@ class MenuProvider extends GetxController {
       print('Gagal mengubah status menjadi ada');
     }
   }
+
+  Future<void> updateTutup(String id) async {
+    final url = Uri.parse(Api.updateTutup);
+    final response = await http.post(
+      url,
+      body: {
+        "id_kantin": id,
+      },
+    );
+    if (response.statusCode == 200) {
+      // Berhasil mengubah status penjualan
+      print('Berhasil mengubah status menjadi habis Semua');
+    } else {
+      // Gagal mengubah status penjualan
+      print('Gagal mengubah status menjadi habis Semua');
+    }
+  }
+
+  Future<void> updateBuka(String id) async {
+    final url = Uri.parse(Api.updateBuka);
+    final response = await http.post(
+      url,
+      body: {
+        "id_kantin": id,
+      },
+    );
+    if (response.statusCode == 200) {
+      // Berhasil mengubah status penjualan
+      print('Berhasil mengubah status menjadi ada Semua');
+    } else {
+      // Gagal mengubah status penjualan
+      print('Gagal mengubah status menjadi ada Semua');
+    }
+  }
 }

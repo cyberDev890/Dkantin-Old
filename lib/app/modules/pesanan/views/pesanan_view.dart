@@ -153,7 +153,7 @@ class PesananView extends GetView<PesananController> {
             itemBuilder: (context, index) {
               final menuData = pesananController.pesananMemasakOnline[index];
               return Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.only(left: 10, right: 10, top: 7),
                 child: Column(
                   children: [
                     SizedBox(
@@ -296,10 +296,10 @@ class PesananView extends GetView<PesananController> {
                                                                           .idMenu,
                                                                       menuData
                                                                           .kodeTr);
-                                                                  await pesananController
-                                                                      .loadPesananKantin();
                                                                   Navigator.pop(
                                                                       context);
+                                                                  await pesananController
+                                                                      .loadPesananKantin();
                                                                 },
                                                                 style: ElevatedButton
                                                                     .styleFrom(
