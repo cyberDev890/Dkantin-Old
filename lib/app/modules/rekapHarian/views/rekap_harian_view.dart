@@ -185,7 +185,7 @@ class RekapHarianView extends GetView<RekapHarianController> {
                               ' POLIJE PAY: ${rekapMenu.polijepay} ',
                               style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                 ),
@@ -205,7 +205,7 @@ class RekapHarianView extends GetView<RekapHarianController> {
                               ' TRANSFER: ${rekapMenu.transferbank} ',
                               style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                 ),
@@ -225,7 +225,7 @@ class RekapHarianView extends GetView<RekapHarianController> {
                               ' GOPAY: ${rekapMenu.gopay}',
                               style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                 ),
@@ -253,7 +253,7 @@ class RekapHarianView extends GetView<RekapHarianController> {
                               ' QRIS: ${rekapMenu.qris}',
                               style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                 ),
@@ -273,7 +273,7 @@ class RekapHarianView extends GetView<RekapHarianController> {
                               ' CASH: ${rekapMenu.cash}',
                               style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                 ),
@@ -293,7 +293,7 @@ class RekapHarianView extends GetView<RekapHarianController> {
                               ' GOPAY: 1 ',
                               style: GoogleFonts.poppins(
                                 textStyle: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 13,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.grey[50],
                                 ),
@@ -332,7 +332,7 @@ class RekapHarianView extends GetView<RekapHarianController> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(right: 10, left: 10, top: 10),
+          padding: const EdgeInsets.only(right: 5, left: 5, top: 10),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -345,9 +345,9 @@ class RekapHarianView extends GetView<RekapHarianController> {
                 width: 5,
               ),
               Container(
-                // color: Colors.black,
+                //color: Colors.black,
                 // height: MediaQuery.of(context).size.height * 0.16,
-                width: MediaQuery.of(context).size.width * 0.70,
+                width: MediaQuery.of(context).size.width * 0.76,
                 child: Text(
                   textAlign: TextAlign.justify,
                   '''RPH (Rekap Pendapatan Harian) Merekap semua pendapatan anda tiap harinya yang memungkinkan anda jika terdapat rekap harian, yaitu dengan cara pilih "2023-03-01"

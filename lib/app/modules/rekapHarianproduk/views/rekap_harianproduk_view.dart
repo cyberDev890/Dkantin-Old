@@ -193,10 +193,11 @@ class RekapHarianprodukView extends GetView<RekapHarianprodukController> {
   }
 
   Widget info(BuildContext context) {
+    final scale = MediaQuery.of(context).textScaleFactor;
+
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.14,
         decoration: BoxDecoration(
           color: Colors.blue[100],
           borderRadius: BorderRadius.all(
@@ -206,7 +207,7 @@ class RekapHarianprodukView extends GetView<RekapHarianprodukController> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(right: 10, left: 10, top: 10),
+          padding: const EdgeInsets.only(right: 5, left: 5, top: 10),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -219,14 +220,14 @@ class RekapHarianprodukView extends GetView<RekapHarianprodukController> {
                 width: 5,
               ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.80,
+                width: MediaQuery.of(context).size.width * 0.76,
                 child: Text(
                   textAlign: TextAlign.justify,
                   '''RHP (Rekap Harian Produk) Merekap semua pendapatan anda setiap produk yang terjual, juga terdapat filter tanggal yaitu dengan cara pilih "2023-03-01"
                           ''',
                   style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                      fontSize: 14,
+                    textStyle: TextStyle(
+                      fontSize: scale <= 1.3 ? 12 : 12,
                       fontWeight: FontWeight.w600,
                       color: Colors.black,
                     ),
