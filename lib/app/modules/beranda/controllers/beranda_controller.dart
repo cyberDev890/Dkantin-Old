@@ -43,6 +43,21 @@ class BerandaController extends GetxController {
     super.onClose();
   }
 
+  Future<void> loadData() async {
+    try {
+      // Panggil fungsi loadPenghasilanbulanan
+      await loadPenghasilanbulanan();
+
+      // Panggil fungsi loadDilayaniSelesai
+      await loadDilayaniSelesai();
+
+      // Fungsi ini akan mencapai baris ini setelah kedua fungsi selesai dieksekusi
+      print('Kedua fungsi telah selesai dieksekusi.');
+    } catch (error) {
+      print('Error fetching data: $error');
+    }
+  }
+
   void toggleSwitch(bool value) {
     isSwitchOn.value = value;
     loginProvider.kantinSwitch();

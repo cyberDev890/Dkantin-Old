@@ -18,78 +18,84 @@ class PesananView extends GetView<PesananController> {
 
   @override
   Widget build(BuildContext context) {
-    // final AuthService authService = Get.put(AuthService());
+    final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
     initializeDateFormatting("id_ID");
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: null, // remove background color
-        automaticallyImplyLeading: false,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color(0xff87c6e7),
-                Colors.blue,
-              ],
-            ),
-          ),
-        ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 50.0,
-              height: 50.0,
-              decoration: BoxDecoration(
-                // color: Color(0xffedf3f6),
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-              ),
-              child: Image.asset(
-                "assets/logo_baru.png",
-                width: 20.0,
-                height: 20.0,
-              ),
-            ),
-            SizedBox(width: 5),
-            Text(
-              'PESANAN',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            ),
-            SizedBox(
-              height: 150,
-            ),
-          ],
-        ),
-      ),
-      body: RefreshIndicator(
-        onRefresh: () async => await pesananController.loadPesananKantin(),
-        child: CustomScrollView(
-          slivers: [
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  Center(
-                      child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 15, right: 15, top: 20, bottom: 10),
-                    child: Text(
-                      'Tekan tombol "Memasak" untuk memasak pesanan, lalu tekan tombol "Selesai" jika sudah menyelesaikan pesanan',
-                      style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xff514D4E),
-                        ),
-                      ),
-                    ),
-                  )),
-                  listItems(context),
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: null, // remove background color
+          automaticallyImplyLeading: false,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xff87c6e7),
+                  Colors.blue,
                 ],
               ),
             ),
-          ],
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 50.0,
+                height: 50.0,
+                decoration: BoxDecoration(
+                  // color: Color(0xffedf3f6),
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                ),
+                child: Image.asset(
+                  "assets/logo_baru.png",
+                  width: 20.0,
+                  height: 20.0,
+                ),
+              ),
+              SizedBox(width: 5),
+              Text(
+                'PESANAN',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              SizedBox(
+                height: 150,
+              ),
+            ],
+          ),
+        ),
+        body: RefreshIndicator(
+          onRefresh: () async => await pesananController.loadPesananKantin(),
+          child: CustomScrollView(
+            slivers: [
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    Center(
+                        child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 15, right: 15, top: 20, bottom: 10),
+                      child: Text(
+                        'Tekan tombol "Memasak" untuk memasak pesanan, lalu tekan tombol "Selesai" jika sudah menyelesaikan pesanan',
+                        style: GoogleFonts.poppins(
+                          textStyle: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xff514D4E),
+                          ),
+                        ),
+                      ),
+                    )),
+                    listItems(context),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

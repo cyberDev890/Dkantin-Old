@@ -17,27 +17,34 @@ class RekapHarianprodukView extends GetView<RekapHarianprodukController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () => rekapHarianController.loadHarianProdukAll(),
-        child: CustomScrollView(
-          slivers: [
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  info(context),
-                  saldo(context),
-                ],
+    final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
+      child: Scaffold(
+        body: RefreshIndicator(
+          onRefresh: () => rekapHarianController.loadHarianProdukAll(),
+          child: CustomScrollView(
+            slivers: [
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    info(context),
+                    saldo(context),
+                  ],
+                ),
               ),
-            ),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  listItems(context),
-                ],
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    listItems(context),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -212,7 +219,7 @@ class RekapHarianprodukView extends GetView<RekapHarianprodukController> {
                 width: 5,
               ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.80,
+                width: MediaQuery.of(context).size.width * 0.77,
                 child: Text(
                   textAlign: TextAlign.justify,
                   '''RHP (Rekap Harian Produk) Merekap semua pendapatan anda setiap produk yang terjual, juga terdapat filter tanggal yaitu dengan cara pilih "2023-03-01"
