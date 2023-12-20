@@ -11,10 +11,6 @@ class BerandaView extends GetView<BerandaController> {
   final BerandaController berandaController = Get.find<BerandaController>();
   @override
   Widget build(BuildContext context) {
-    final penjualanBulanIni =
-        berandaController.penghasilan.value.data?.penjualanBulanIni ?? 0;
-    final penjualanHariIni =
-        berandaController.penghasilan.value.data?.penjualanHariIni ?? 0;
     final query = MediaQuery.of(context);
     print('textscalefactor: ${query.textScaleFactor}');
     print('devicePixelRatio: ${query.devicePixelRatio}');
@@ -126,28 +122,22 @@ class BerandaView extends GetView<BerandaController> {
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.01,
                             ),
-                            Obx(
-                              () => berandaController.penghasilan.value.data
-                                          ?.penjualanBulanIni
-                                          .toString() ==
-                                      0
-                                  ? Text(
-                                      "Rp.0",
-                                      style: TextStyle(
-                                        fontSize: 25,
-                                        color: Color(0xff4a81dc),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    )
-                                  : Text(
-                                      penjualanBulanIni.toRupiah() ?? "Rp.0",
-                                      style: TextStyle(
-                                        fontSize: 25,
-                                        color: Color(0xff4a81dc),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                            ),
+                            Obx(() {
+                              final penjualanBulanIni = berandaController
+                                      .penghasilan
+                                      .value
+                                      .data
+                                      ?.penjualanBulanIni ??
+                                  0;
+                              return Text(
+                                penjualanBulanIni.toRupiah() ?? "Rp.0",
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  color: Color(0xff4a81dc),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              );
+                            }),
                             SizedBox(
                               height: 20,
                             ),
@@ -167,29 +157,22 @@ class BerandaView extends GetView<BerandaController> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  child: Obx(
-                                    () => berandaController.penghasilan.value
-                                                .data?.penjualanBulanIni
-                                                .toString() ==
-                                            0
-                                        ? Text(
-                                            "Rp.0",
-                                            style: TextStyle(
-                                              fontSize: 25,
-                                              color: Color(0xff4a81dc),
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          )
-                                        : Text(
-                                            penjualanHariIni.toRupiah() ??
-                                                "Rp.0",
-                                            style: TextStyle(
-                                              fontSize: 25,
-                                              color: Color(0xff4a81dc),
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                  ),
+                                  child: Obx(() {
+                                    final penjualanHariIni = berandaController
+                                            .penghasilan
+                                            .value
+                                            .data
+                                            ?.penjualanHariIni ??
+                                        0;
+                                    return Text(
+                                      penjualanHariIni.toRupiah() ?? "Rp.0",
+                                      style: TextStyle(
+                                        fontSize: 25,
+                                        color: Color(0xff4a81dc),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    );
+                                  }),
                                 ),
                                 Container(
                                   child: Row(
@@ -370,9 +353,6 @@ class BerandaView extends GetView<BerandaController> {
                       ),
                     ],
                   ),
-                ),
-                SizedBox(
-                  height: 60,
                 ),
               ],
             ),

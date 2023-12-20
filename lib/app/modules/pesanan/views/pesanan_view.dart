@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../repository/services.dart';
 import '../controllers/pesanan_controller.dart';
 
 class PesananView extends GetView<PesananController> {
@@ -183,22 +184,23 @@ class PesananView extends GetView<PesananController> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 3, right: 3, top: 5, bottom: 10),
+                          padding: const EdgeInsets.all(10),
                           child: Column(
                             children: [
                               Row(
                                 children: [
                                   Container(
-                                    height: 50,
-                                    width: 50,
-                                    padding:
-                                        EdgeInsets.only(left: 10, right: 2),
-                                    child: Image.network(
-                                      "http://dikantin.com/" +
-                                          menuData.foto.toString(),
-                                      fit: BoxFit.contain,
-                                    ),
+                                    height: 80,
+                                    width: 80,
+                                    alignment: Alignment.topLeft,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: NetworkImage(Api.gambar +
+                                              menuData.foto.toString()),
+                                          fit: BoxFit.cover,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
                                   ),
                                   SizedBox(
                                     width: 5,
@@ -228,7 +230,7 @@ class PesananView extends GetView<PesananController> {
                                         )
                                       : Expanded(
                                           child: Text(
-                                            "Meja " +
+                                            "Meja: " +
                                                 menuData.noMeja.toString(),
                                             style: TextStyle(
                                                 color: Color(0xff514d4e),
@@ -236,6 +238,64 @@ class PesananView extends GetView<PesananController> {
                                           ),
                                           flex: 1,
                                         ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              menuData.catatan == '' || menuData.catatan == null
+                                  ? Text("")
+                                  : Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        "Catatan : " + (menuData.catatan ?? ''),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 166, 166, 166),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 12),
+                                      ),
+                                    ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  menuData.statusDetail
+                                              .toString()
+                                              .contains("selesai") &&
+                                          menuData.noMeja
+                                              .toString()
+                                              .contains("0")
+                                      ? Align(
+                                          alignment: Alignment.bottomLeft,
+                                          child: Text(
+                                            'Menunggu Kurir',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 255, 24, 24),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12),
+                                          ),
+                                        )
+                                      : menuData.statusDetail
+                                                  .toString()
+                                                  .contains("selesai") &&
+                                              menuData.noMeja! > 0
+                                          ? Align(
+                                              alignment: Alignment.bottomLeft,
+                                              child: Text(
+                                                'Menunggu pesanan lain selesai',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 255, 24, 24),
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 12),
+                                              ),
+                                            )
+                                          : SizedBox(),
                                   menuData.statusDetail == null
                                       ? ElevatedButton(
                                           //offline
@@ -414,10 +474,10 @@ class PesananView extends GetView<PesananController> {
                                                                               menuData.kantin.toString(),
                                                                               menuData.idMenu,
                                                                               menuData.kodeTr);
-                                                                          Navigator.pop(
-                                                                              context);
                                                                           await pesananController
                                                                               .loadPesananKantin();
+                                                                          Navigator.pop(
+                                                                              context);
                                                                         },
                                                                         style: ElevatedButton
                                                                             .styleFrom(
@@ -597,71 +657,8 @@ class PesananView extends GetView<PesananController> {
                                                       child: const Text(
                                                           "Menunggu"),
                                                     ),
-                                  SizedBox(
-                                    width: 10,
-                                  )
                                 ],
                               ),
-                              menuData.catatan == '' || menuData.catatan == null
-                                  ? SizedBox()
-                                  : Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, bottom: 2),
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          "Catatan : " +
-                                              (menuData.catatan ?? ''),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 166, 166, 166),
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12),
-                                        ),
-                                      ),
-                                    ),
-                              menuData.statusDetail
-                                          .toString()
-                                          .contains("selesai") &&
-                                      menuData.noMeja.toString().contains("0")
-                                  ? Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, bottom: 10),
-                                      child: Align(
-                                        alignment: Alignment.bottomLeft,
-                                        child: Text(
-                                          'Menunggu Kurir',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 255, 24, 24),
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12),
-                                        ),
-                                      ),
-                                    )
-                                  : menuData.statusDetail
-                                              .toString()
-                                              .contains("selesai") &&
-                                          menuData.noMeja! > 0
-                                      ? Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10, bottom: 10),
-                                          child: Align(
-                                            alignment: Alignment.bottomLeft,
-                                            child: Text(
-                                              'Menunggu pesanan lain selesai',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Color.fromARGB(
-                                                      255, 255, 24, 24),
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 12),
-                                            ),
-                                          ),
-                                        )
-                                      : SizedBox(),
                             ],
                           ),
                         )),

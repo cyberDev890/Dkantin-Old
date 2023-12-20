@@ -11,8 +11,8 @@ class BerandaController extends GetxController {
   final penghasilanProvider = PenghasilanProvider().obs;
   final cProvider = countProvider().obs;
   final isLoading = false.obs; // Tambahkan isLoading
-  Rx<Penghasilan> penghasilan = Penghasilan().obs;
-  Rx<Count> dilayani = Count().obs;
+  final Rx<Penghasilan> penghasilan = Rx<Penghasilan>(Penghasilan());
+  final Rx<Count> dilayani = Rx<Count>(Count());
 
   RxString kantin = ''.obs; // Gunakan RxString
   final count = 0.obs;
@@ -20,19 +20,22 @@ class BerandaController extends GetxController {
   void onInit() {
     super.onInit();
     getToken();
-    loadPenghasilanbulanan();
-    loadDilayaniSelesai();
+    loadData();
   }
 
   @override
   void onReady() {
     super.onReady();
-    loadPenghasilanbulanan();
   }
 
   @override
   void onClose() {
     super.onClose();
+  }
+
+  Future<void> loadData() async {
+    await loadPenghasilanbulanan();
+    await loadDilayaniSelesai();
   }
 
   Future<void> loadPenghasilanbulanan() async {
@@ -42,7 +45,7 @@ class BerandaController extends GetxController {
       penghasilan(result);
       isLoading(false);
       update();
-      print('shapp');
+      print('Ini load penghasilan dipanggil');
     } catch (error) {
       isLoading(false);
       print('Error fetching datad: $error');
@@ -56,7 +59,7 @@ class BerandaController extends GetxController {
       dilayani(result);
       isLoading(false);
       update();
-      print('sukses');
+      print('Ini load dilayani dipanggil');
     } catch (error) {
       isLoading(false);
       print('Error fetching loadDilayaniSelesai: $error');

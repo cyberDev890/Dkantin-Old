@@ -15,6 +15,7 @@ import '../controllers/navigation_controller.dart';
 
 class NavigationView extends GetView<NavigationController> {
   NavigationView({Key? key}) : super(key: key);
+
   final BerandaController berandaController = Get.put(BerandaController());
   final MenuNavController menuNavController = Get.put(MenuNavController());
   final PesananController pesananController = Get.put(PesananController());

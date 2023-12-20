@@ -1,6 +1,5 @@
 import 'dart:io';
-
-
+import 'package:flutter/services.dart';
 import 'package:dikantin_o_l_d/app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -22,7 +21,10 @@ Future<void> main() async {
   );
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   // Inisialisasi FCMService
-
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
@@ -36,9 +38,6 @@ Future<void> main() async {
           // debugPrint(fmcToken);
           FirebaseMessaging messaging = FirebaseMessaging.instance;
           messaging.requestPermission();
-
-          
-          
 
           FirebaseMessaging.onMessage.listen(
             (RemoteMessage message) async {
@@ -77,4 +76,3 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
-  
