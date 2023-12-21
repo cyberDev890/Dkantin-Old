@@ -220,7 +220,7 @@ class RekapHarianprodukView extends GetView<RekapHarianprodukController> {
                 width: 5,
               ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.76,
+                width: MediaQuery.of(context).size.width * 0.77,
                 child: Text(
                   textAlign: TextAlign.justify,
                   '''RHP (Rekap Harian Produk) Merekap semua pendapatan anda setiap produk yang terjual, juga terdapat filter tanggal yaitu dengan cara pilih "2023-03-01"

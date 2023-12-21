@@ -10,7 +10,9 @@ import 'app/routes/app_pages.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  showNotification(flutterLocalNotificationsPlugin, message);
 }
 
 Future<void> main() async {
@@ -44,27 +46,36 @@ Future<void> main() async {
               FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
                   FlutterLocalNotificationsPlugin();
 
-              const AndroidNotificationDetails androidPlatformChannelSpecifics =
-                  AndroidNotificationDetails('DiPujasKantin', 'DiPujasKantin',
-                      importance: Importance.max,
-                      priority: Priority.high,
-                      icon: "@mipmap/ic_launcher",
-                      showWhen: false);
-              const NotificationDetails platformChannelSpecifics =
-                  NotificationDetails(android: androidPlatformChannelSpecifics);
-
-              await flutterLocalNotificationsPlugin.show(
-                0, // ID notifikasi
-                message.notification!.title, // Judul notifikasi dari pesan FCM
-                message.notification!.body,
-                // Isi notifikasi dari pesan FCM
-                platformChannelSpecifics,
-              );
+              await showNotification(flutterLocalNotificationsPlugin, message);
             },
           );
         },
       ),
     ),
+  );
+}
+
+showNotification(
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin,
+    RemoteMessage message) async {
+  print("show notifications");
+  const AndroidNotificationDetails androidPlatformChannelSpecifics =
+      AndroidNotificationDetails('DiPujasKantin', 'DiPujasKantin',
+          importance: Importance.max,
+          priority: Priority.high,
+          silent: false,
+          playSound: true,
+          icon: "@mipmap/ic_launcher",
+          sound: RawResourceAndroidNotificationSound('notif'),
+          showWhen: true);
+  const NotificationDetails platformChannelSpecifics =
+      NotificationDetails(android: androidPlatformChannelSpecifics);
+  await flutterLocalNotificationsPlugin.show(
+    0, // ID notifikasi
+    message.notification!.title, // Judul notifikasi dari pesan FCM
+    message.notification!.body,
+    // Isi notifikasi dari pesan FCM
+    platformChannelSpecifics,
   );
 }
 

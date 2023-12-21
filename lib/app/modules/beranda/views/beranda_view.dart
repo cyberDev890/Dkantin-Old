@@ -189,11 +189,15 @@ class BerandaView extends GetView<BerandaController> {
                                       SizedBox(
                                         width: query.size.width * 0.01,
                                       ),
-                                      Container(
-                                        margin: EdgeInsets.only(right: 20),
-                                        child:
-                                            Image.asset("assets/Group_2.png"),
-                                      ),
+                                      // Expanded(child: Container()),
+                                      Obx(() => Switch(
+                                            value: berandaController
+                                                .isSwitchOn.value,
+                                            onChanged: (value) {
+                                              berandaController
+                                                  .toggleSwitch(value);
+                                            },
+                                          )),
                                     ],
                                   ),
                                 )

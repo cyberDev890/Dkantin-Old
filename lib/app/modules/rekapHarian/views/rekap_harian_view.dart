@@ -347,7 +347,7 @@ class RekapHarianView extends GetView<RekapHarianController> {
               Container(
                 //color: Colors.black,
                 // height: MediaQuery.of(context).size.height * 0.16,
-                width: MediaQuery.of(context).size.width * 0.76,
+                width: MediaQuery.of(context).size.width * 0.77,
                 child: Text(
                   textAlign: TextAlign.justify,
                   '''RPH (Rekap Pendapatan Harian) Merekap semua pendapatan anda tiap harinya yang memungkinkan anda jika terdapat rekap harian, yaitu dengan cara pilih "2023-03-01"

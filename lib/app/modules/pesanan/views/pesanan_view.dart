@@ -160,7 +160,7 @@ class PesananView extends GetView<PesananController> {
             itemBuilder: (context, index) {
               final menuData = pesananController.pesananMemasakOnline[index];
               return Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.only(left: 10, right: 10, top: 7),
                 child: Column(
                   children: [
                     SizedBox(
@@ -319,7 +319,7 @@ class PesananView extends GetView<PesananController> {
                                                   context: context,
                                                   builder: (context) {
                                                     return MediaQuery(
-                                                      data: query.copyWith(
+                                                        data: query.copyWith(
                                                           textScaleFactor: query
                                                               .textScaleFactor
                                                               .clamp(
@@ -356,8 +356,8 @@ class PesananView extends GetView<PesananController> {
                                                               Expanded(
                                                                 child:
                                                                     ElevatedButton(
-                                                                  child: Text(
-                                                                      'Ya'),
+                                                                  child:
+                                                                      Text('Ya'),
                                                                   onPressed:
                                                                       () async {
                                                                     await pesananController.keMemasakOnline(
@@ -387,15 +387,13 @@ class PesananView extends GetView<PesananController> {
                                                                   ),
                                                                 ),
                                                               ),
-                                                              SizedBox(
-                                                                  width: 8),
+                                                              SizedBox(width: 8),
                                                               Expanded(
                                                                 child:
                                                                     ElevatedButton(
                                                                   child: Text(
                                                                       'Tidak'),
-                                                                  onPressed:
-                                                                      () {
+                                                                  onPressed: () {
                                                                     Navigator.pop(
                                                                         context);
                                                                   },

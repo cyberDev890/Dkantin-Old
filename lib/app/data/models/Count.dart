@@ -25,18 +25,21 @@ class Count {
 class Data {
   int? selesai;
   int? dilayani;
+  int? statusKantin;
 
-  Data({this.selesai, this.dilayani});
+  Data({this.selesai, this.dilayani, this.statusKantin});
 
   Data.fromJson(Map<String, dynamic> json) {
     selesai = json['selesai'];
     dilayani = json['dilayani'];
+    statusKantin = json['statusKantin']; // Adjusted this line
   }
 
   Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['selesai'] = selesai;
-    data['dilayani'] = dilayani;
+    final data = Map<String, dynamic>();
+    data['selesai'] = this.selesai;
+    data['dilayani'] = this.dilayani;
+    data['statusKantin'] = this.statusKantin; // Adjusted this line
     return data;
   }
 }

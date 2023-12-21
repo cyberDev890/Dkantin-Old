@@ -1,13 +1,11 @@
 // views/riwayat_screen_view.dart
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:dikantin_o_l_d/app/modules/laporan/controllers/laporan_controller.dart';
 import 'package:dikantin_o_l_d/app/repository/formatRupiah.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-
-import '../../../laporan/controllers/laporan_controller.dart';
 
 class RiwayatScreenView extends GetView<LaporanController> {
   RiwayatScreenView({Key? key}) : super(key: key);
@@ -15,40 +13,36 @@ class RiwayatScreenView extends GetView<LaporanController> {
   @override
   Widget build(BuildContext context) {
     // Register the controller using Get.put
-    final query = MediaQuery.of(context);
-    print('textscalefactor: ${query.textScaleFactor}');
-    print('devicePixelRatio: ${query.devicePixelRatio}');
     final controller = Get.put(LaporanController());
-    return MediaQuery(
-      data: query.copyWith(
-          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
-        child: Scaffold(
-          body: FutureBuilder(
-            future: controller.fetchRiwayat(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                final total = controller.riwayatData.value!.data.dataTotal ?? 0;
-                return Obx(() => Column(
+
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+      child: Scaffold(
+        body: FutureBuilder(
+          future: controller.fetchRiwayat(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              return Obx(() => SingleChildScrollView(
+                    child: Column(
                       children: [
-                        Text(
-                          total.toRupiah(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                              color: Colors.blue),
-                        ),
-                        Text(
-                          'Total Keseluruhan',
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            color: Colors.black,
-                          ),
+                        Column(
+                          children: [
+                            Text(
+                              "Rp.${controller.riwayatData.value!.data.dataTotal}",
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30,
+                                  color: Colors.blue),
+                            ),
+                            Text(
+                              'Total Keseluruhan',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 10,
@@ -58,19 +52,14 @@ class RiwayatScreenView extends GetView<LaporanController> {
                           children: [
                             Text(
                               'List Riwayat',
-                              style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                color: Colors.black,
-                              ),
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
                             ),
                             Row(
                               children: [
                                 Obx(() => Text(
                                       controller.date.value,
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 15,
-                                        color: Colors.black,
-                                      ),
+                                      style: TextStyle(fontSize: 15),
                                     )),
                                 IconButton(
                                   onPressed: () {
@@ -79,7 +68,6 @@ class RiwayatScreenView extends GetView<LaporanController> {
                                   icon: Icon(
                                     Icons.keyboard_arrow_down_outlined,
                                     color: Colors.blue,
-                                    size: 35,
                                   ),
                                 )
                               ],
@@ -89,71 +77,82 @@ class RiwayatScreenView extends GetView<LaporanController> {
                         SizedBox(
                           height: 10,
                         ),
-                        Expanded(
-                          child: ListView.separated(
-                            separatorBuilder: (context, index) {
-                              return SizedBox(
-                                height: 10,
-                              );
-                            },
-                            padding: EdgeInsets.symmetric(horizontal: 5),
-                            shrinkWrap: true,
-                            itemCount: controller
-                                .riwayatData
-                                .value!
-                                .data
-                                .dataRiwayat
-                                .length, // Replace with the desired number of items
-                            itemBuilder: (context, index) {
-                              return RiwayatCard(
-                                namaMenu: controller.riwayatData.value!.data
-                                        .dataRiwayat[index].nama ??
-                                    'null',
-                                qty: controller.riwayatData.value!.data
-                                        .dataRiwayat[index].qty
-                                        .toString() ??
-                                    'null',
-                                status: controller.riwayatData.value!.data
-                                        .dataRiwayat[index].statusPengiriman ??
-                                    'null',
-                                subTotalPerItem: controller
-                                        .riwayatData
-                                        .value!
-                                        .data
-                                        .dataRiwayat[index]
-                                        .subtotalHargapokok
-                                        .toString() ??
-                                    'null',
-                                tanggal: controller.riwayatData.value!.data
-                                        .dataRiwayat[index].tanggalTransaksi
-                                        .toLocal()
-                                        .toString() ??
-                                    'null',
-                                transaksi: controller.riwayatData.value!.data
-                                        .dataRiwayat[index].kodeTr ??
-                                    'null',
-                                total: controller
-                                        .riwayatData.value!.data.dataTotal
-                                        .toString() ??
-                                    'null',
-                                typePembayaran: controller
-                                        .riwayatData
-                                        .value!
-                                        .data
-                                        .dataRiwayat[index]
-                                        .modelPembayaran ??
-                                    'null',
-                                harga: controller.riwayatData.value!.data
-                                    .dataRiwayat[index].harga,
-                              );
-                            },
-                          ),
-                        ),
+                        controller.riwayatData.value!.data.dataRiwayat.length ==
+                                0
+                            ? Center(
+                                child: Text('Tidak ada data'),
+                              )
+                            : ListView.separated(
+                                physics: NeverScrollableScrollPhysics(),
+
+                                separatorBuilder: (context, index) {
+                                  return SizedBox(
+                                    height: 10,
+                                  );
+                                },
+                                padding: EdgeInsets.symmetric(horizontal: 5),
+                                shrinkWrap: true,
+
+                                itemCount: controller
+                                    .riwayatData
+                                    .value!
+                                    .data
+                                    .dataRiwayat
+                                    .length, // Replace with the desired number of items
+                                itemBuilder: (context, index) {
+                                  return RiwayatCard(
+                                    namaMenu: controller.riwayatData.value!.data
+                                            .dataRiwayat[index].nama ??
+                                        'null',
+                                    qty: controller.riwayatData.value!.data
+                                            .dataRiwayat[index].qty
+                                            .toString() ??
+                                        'null',
+                                    status: controller
+                                            .riwayatData
+                                            .value!
+                                            .data
+                                            .dataRiwayat[index]
+                                            .statusPengiriman ??
+                                        'null',
+                                    subTotalPerItem: controller
+                                            .riwayatData
+                                            .value!
+                                            .data
+                                            .dataRiwayat[index]
+                                            .subtotalHargapokok
+                                            .toString() ??
+                                        'null',
+                                    tanggal: controller.riwayatData.value!.data
+                                            .dataRiwayat[index].tanggalTransaksi
+                                            .toLocal()
+                                            .toString() ??
+                                        'null',
+                                    transaksi: controller.riwayatData.value!
+                                            .data.dataRiwayat[index].kodeTr ??
+                                        'null',
+                                    total: controller
+                                            .riwayatData.value!.data.dataTotal
+                                            .toString() ??
+                                        'null',
+                                    typePembayaran: controller
+                                            .riwayatData
+                                            .value!
+                                            .data
+                                            .dataRiwayat[index]
+                                            .modelPembayaran ??
+                                        'null',
+                                    harga: controller.riwayatData.value!.data
+                                        .dataRiwayat[index].harga
+                                        .toRupiah(),
+                                  );
+                                },
+                              ),
                       ],
-                    ));
-              }
-            },
-          ),
+                    ),
+                  ));
+            }
+          },
         ),
       ),
     );
@@ -309,7 +308,7 @@ class RiwayatCard extends StatelessWidget {
   String subTotalPerItem;
   String total;
   String status;
-  int harga;
+  String harga;
 
   RiwayatCard(
       {super.key,
@@ -343,81 +342,24 @@ class RiwayatCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "Pembayaran:  ${this.typePembayaran}",
-                style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500),
-              ),
+              Text("Pembayaran:  ${this.typePembayaran}"),
               Text(
                 'Rp.${this.subTotalPerItem}',
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  color: Colors.blue,
-                ),
+                style: TextStyle(color: Colors.blue),
               )
             ],
           ),
           Divider(),
-          Text(
-            this.tanggal,
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              color: Colors.black,
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Text(
-            'Nomor transaksi : ${this.transaksi}',
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              color: Colors.black,
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
+          Text(this.tanggal),
+          Text('nomor transaksi : ${this.transaksi}'),
+          Text('${this.namaMenu} x${this.qty}'),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                '${this.namaMenu} ',
-                style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400),
-              ),
-              Text(
-                'x ${this.qty} ',
-                style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                this.harga.toRupiah(),
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  color: Colors.black,
-                ),
-              ),
+              Text('Rp.${this.harga}'),
               Text(
                 'Status: ${this.status}',
-                style: GoogleFonts.poppins(
-                  fontSize: 15,
-                  color: Colors.blue,
-                ),
+                style: TextStyle(color: Colors.blue),
               )
             ],
           ),

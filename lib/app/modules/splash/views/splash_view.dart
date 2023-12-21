@@ -9,6 +9,7 @@ class SplashView extends GetView<SplashController> {
   @override
   Widget build(BuildContext context) {
     final query = MediaQuery.of(context);
+
     return MediaQuery(
       data: query.copyWith(
           textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
