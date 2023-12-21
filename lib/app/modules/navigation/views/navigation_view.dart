@@ -1,6 +1,7 @@
 import 'package:carbon_icons/carbon_icons.dart';
 import 'package:dikantin_o_l_d/app/modules/beranda/views/beranda_view.dart';
 import 'package:dikantin_o_l_d/app/modules/menuNav/views/menu_nav_view.dart';
+import 'package:dikantin_o_l_d/app/modules/pesanan/controllers/pesanan_controller.dart';
 import 'package:dikantin_o_l_d/app/modules/pesanan/views/pesanan_view.dart';
 import 'package:dikantin_o_l_d/app/modules/profil/views/profil_view.dart';
 import 'package:dikantin_o_l_d/app/modules/riwayat/views/riwayat_view.dart';
@@ -14,13 +15,17 @@ import '../controllers/navigation_controller.dart';
 
 class NavigationView extends GetView<NavigationController> {
   NavigationView({Key? key}) : super(key: key);
+
   final BerandaController berandaController = Get.put(BerandaController());
   final MenuNavController menuNavController = Get.put(MenuNavController());
+  final PesananController pesananController = Get.put(PesananController());
   final NavigationController navigationController =
       Get.put(NavigationController());
-
   @override
   Widget build(BuildContext context) {
+    final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
     DateTime? currentBackPressTime;
 
     Future<bool> onWillPop() async {
@@ -39,29 +44,35 @@ class NavigationView extends GetView<NavigationController> {
       return Future.value(true);
     }
 
-    return WillPopScope(
-      onWillPop: onWillPop,
-      child: Obx(
-        () => Scaffold(
-          backgroundColor: Colors.white, // Atur warna latar belakang Scaffold
-          body: _buildBody(navigationController.currentTab.value),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              navigationController.changeTab(2);
-              // Do other actions if needed
-            },
-            backgroundColor: navigationController.currentTab.value == 2
-                ? Color(0xffe4ea17)
-                : Color(0xff3ca2d9),
-            child: Icon(
-              CarbonIcons.catalog,
-              size: 24.0,
-              color: Colors.white,
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
+      child: WillPopScope(
+        onWillPop: onWillPop,
+        child: Obx(
+          () => Scaffold(
+            backgroundColor: Colors.white, // Atur warna latar belakang Scaffold
+            body: _buildBody(navigationController.currentTab.value),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () async {
+                await pesananController.loadPesananKantin();
+                navigationController.changeTab(2);
+
+                // Do other actions if needed
+              },
+              backgroundColor: navigationController.currentTab.value == 2
+                  ? Color(0xffe4ea17)
+                  : Color(0xff3ca2d9),
+              child: Icon(
+                CarbonIcons.catalog,
+                size: 24.0,
+                color: Colors.white,
+              ),
             ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            bottomNavigationBar: _buildBottomAppBar(),
           ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          bottomNavigationBar: _buildBottomAppBar(),
         ),
       ),
     );
@@ -118,8 +129,10 @@ class NavigationView extends GetView<NavigationController> {
             // Call loadmenu when the "Menu" tab is pressed
             menuNavController.loadmenu();
           } else if (tabIndex == 0) {
-            berandaController.loadPenghasilan();
+            berandaController.loadPenghasilanbulanan();
             berandaController.loadDilayaniSelesai();
+          } else if (tabIndex == 2) {
+            pesananController.loadPesananKantin();
           }
         },
         child: Column(

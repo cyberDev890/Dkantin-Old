@@ -1,8 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="dikantin_o_l_d"
+    
+        android:label="Dikantin Partner"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        
+        
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -19,6 +23,7 @@
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
               />
+              
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

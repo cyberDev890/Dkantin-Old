@@ -32,6 +32,7 @@ class Menu {
 class DataMenu {
   int? idMenu;
   String? nama;
+  int? hargaPokok;
   int? harga;
   String? foto;
   String? statusStok;
@@ -44,6 +45,7 @@ class DataMenu {
   DataMenu(
       {this.idMenu,
       this.nama,
+      this.hargaPokok,
       this.harga,
       this.foto,
       this.statusStok,
@@ -56,6 +58,7 @@ class DataMenu {
   DataMenu.fromJson(Map<String, dynamic> json) {
     idMenu = json['id_menu'];
     nama = json['nama'];
+    hargaPokok =json['harga_pokok'];
     harga = json['harga'];
     foto = json['foto'];
     statusStok = json['status_stok'];
@@ -70,6 +73,7 @@ class DataMenu {
     final data = <String, dynamic>{};
     data['id_menu'] = idMenu;
     data['nama'] = nama;
+    data['harga_pokok'] = hargaPokok;
     data['harga'] = harga;
     data['foto'] = foto;
     data['status_stok'] = statusStok;

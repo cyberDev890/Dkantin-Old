@@ -14,73 +14,81 @@ class MenuNavView extends GetView<MenuNavController> {
   final MenuNavController menuNavController = Get.find<MenuNavController>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: null, // remove background color
-        automaticallyImplyLeading: false,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color(0xff87c6e7),
-                Colors.blue,
-              ],
+    final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: null, // remove background color
+          automaticallyImplyLeading: false,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xff87c6e7),
+                  Colors.blue,
+                ],
+              ),
             ),
           ),
-        ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 50.0,
-              height: 50.0,
-              decoration: BoxDecoration(
-                // color: Color(0xffedf3f6),
-                borderRadius: BorderRadius.all(Radius.circular(5)),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 50.0,
+                height: 50.0,
+                decoration: BoxDecoration(
+                  // color: Color(0xffedf3f6),
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                ),
+                child: Image.asset(
+                  "assets/logo_baru.png",
+                  width: 20.0,
+                  height: 20.0,
+                ),
               ),
-              child: Image.asset(
-                "assets/logo_baru.png",
-                width: 20.0,
-                height: 20.0,
+              SizedBox(width: 5),
+              Text(
+                'MENU',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
-            ),
-            SizedBox(width: 5),
-            Text(
-              'MENU',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            ),
-            SizedBox(
-              height: 150,
-            ),
-          ],
+              SizedBox(
+                height: 150,
+              ),
+            ],
+          ),
         ),
-      ),
-      body: RefreshIndicator(
-        onRefresh: () async => await menuNavController.loadmenu(),
-        child: CustomScrollView(
-          slivers: [
-            SliverList(
-              delegate: SliverChildListDelegate([
-                Center(
-                    child: Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
-                  child: Text(
-                    "Untuk mengganti ketersediaan menu, silahkan klik tombol ada atau tidak ada",
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xff514D4E),
+        body: RefreshIndicator(
+          onRefresh: () async => await menuNavController.loadmenu(),
+          child: CustomScrollView(
+            slivers: [
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  Center(
+                      child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 15, right: 15, top: 20, bottom: 10),
+                    child: Text(
+                      "Untuk mengganti ketersediaan menu, silahkan klik tombol Tersedia atau Habis",
+                      style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xff514D4E),
+                        ),
                       ),
                     ),
-                  ),
-                )),
-                content(context),
-              ]),
-            )
-          ],
+                  )),
+                  content(context),
+                ]),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -137,7 +145,7 @@ class MenuNavView extends GetView<MenuNavController> {
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             final menuDatas = menuNavController.menuData.data![index];
-            final harga = menuDatas.harga ?? 0;
+            final hargaPokok = menuDatas.hargaPokok ?? 0;
             return Padding(
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: Card(
@@ -183,58 +191,66 @@ class MenuNavView extends GetView<MenuNavController> {
                                 SizedBox(
                                   height: 5,
                                 ),
-                                Text(harga.toRupiah(),
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 14,
-                                      color: Colors.red,
-                                    )),
-                                menuDatas.statusStok.toString() == 'ada'
-                                    ? ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Color(0xFF2579FD),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
-                                        ),
-                                        onPressed: () async {
-                                          menuNavController.menuHabis(
-                                              menuDatas.idMenu.toString());
-                                        },
-                                        child: Text(
-                                          "Tersedia",
-                                          style: GoogleFonts.poppins(
-                                            textStyle: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(hargaPokok.toRupiah(),
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          color: Colors.red,
+                                        )),
+                                    menuDatas.statusStok.toString() == 'ada'
+                                        ? ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  Color(0xFF2579FD),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                            ),
+                                            onPressed: () async {
+                                              menuNavController.menuHabis(
+                                                  menuDatas.idMenu.toString());
+                                            },
+                                            child: Text(
+                                              "Tersedia",
+                                              style: GoogleFonts.poppins(
+                                                textStyle: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        : ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Color.fromARGB(
+                                                  255, 253, 37, 37),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              menuNavController.menuAda(
+                                                  menuDatas.idMenu.toString());
+                                            },
+                                            child: Text(
+                                              "Habis",
+                                              style: GoogleFonts.poppins(
+                                                textStyle: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      )
-                                    : ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Color(0xFF2579FD),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          menuNavController.menuAda(
-                                              menuDatas.idMenu.toString());
-                                        },
-                                        child: Text(
-                                          "Habis",
-                                          style: GoogleFonts.poppins(
-                                            textStyle: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                  ],
+                                ),
                               ],
                             ),
                           ),

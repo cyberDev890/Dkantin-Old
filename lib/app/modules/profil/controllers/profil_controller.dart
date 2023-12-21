@@ -1,3 +1,4 @@
+import 'package:dikantin_o_l_d/app/data/providers/login_provider.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -7,6 +8,8 @@ class ProfilController extends GetxController {
   final count = 0.obs;
   RxString username = ''.obs; // Gunakan RxString
   RxString email = ''.obs; // Gunakan RxString
+  // final isSwitchOn = false.obs;
+  // final LoginProvider loginProvider = LoginProvider().obs();
 
   @override
   void onInit() {
@@ -23,6 +26,14 @@ class ProfilController extends GetxController {
   void onClose() {
     super.onClose();
   }
+
+  // void toggleSwitch(bool value) {
+  //   isSwitchOn.value = value;
+  //   loginProvider.kantinSwitch();
+  //   if (value) {
+  //     Get.snackbar('Akun status', 'ON');
+  //   }
+  // }
 
   void increment() => count.value++;
   Future<void> logout() async {

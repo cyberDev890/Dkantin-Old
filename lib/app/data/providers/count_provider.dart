@@ -11,7 +11,7 @@ class countProvider extends GetxController {
   Future<Count> loadCount() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
-    final response = await http.post(
+    final response = await http.get(
       Uri.parse(Api.count),
       headers: {
         'Authorization':
