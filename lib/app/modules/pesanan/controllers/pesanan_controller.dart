@@ -51,8 +51,6 @@ class PesananController extends GetxController {
       isLoading(true);
       await pesanankantinMemasakOnline.value
           .MemasakOnline(id_kantin, id_menu, kodeTr);
-      // Refresh data setelah pembatalan pesanan berhasil
-      await loadPesananKantin();
       update();
       isLoading(false);
       Get.snackbar(

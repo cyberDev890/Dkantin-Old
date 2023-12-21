@@ -15,6 +15,7 @@ import '../controllers/navigation_controller.dart';
 
 class NavigationView extends GetView<NavigationController> {
   NavigationView({Key? key}) : super(key: key);
+
   final BerandaController berandaController = Get.put(BerandaController());
   final MenuNavController menuNavController = Get.put(MenuNavController());
   final PesananController pesananController = Get.put(PesananController());
@@ -128,7 +129,8 @@ class NavigationView extends GetView<NavigationController> {
             // Call loadmenu when the "Menu" tab is pressed
             menuNavController.loadmenu();
           } else if (tabIndex == 0) {
-            berandaController.loadData();
+            berandaController.loadPenghasilanbulanan();
+            berandaController.loadDilayaniSelesai();
           } else if (tabIndex == 2) {
             pesananController.loadPesananKantin();
           }

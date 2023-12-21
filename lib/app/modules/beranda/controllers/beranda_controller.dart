@@ -17,8 +17,9 @@ class BerandaController extends GetxController {
   final cProvider = countProvider().obs;
   final isLoading = false.obs; // Tambahkan isLoading
   final menuNavController = Get.put(MenuNavController());
-  Rx<Penghasilan> penghasilan = Penghasilan().obs;
-  Rx<Count> dilayani = Count().obs;
+  final Rx<Penghasilan> penghasilan = Rx<Penghasilan>(Penghasilan());
+  final Rx<Count> dilayani = Rx<Count>(Count());
+
   RxString kantin = ''.obs; // Gunakan RxString
   final isSwitchOn = false.obs;
   final menuProvider = MenuProvider().obs;
@@ -28,14 +29,12 @@ class BerandaController extends GetxController {
   void onInit() {
     super.onInit();
     getToken();
-    loadPenghasilanbulanan();
-    loadDilayaniSelesai();
+    loadData();
   }
 
   @override
   void onReady() {
     super.onReady();
-    loadPenghasilanbulanan();
   }
 
   @override
@@ -44,18 +43,8 @@ class BerandaController extends GetxController {
   }
 
   Future<void> loadData() async {
-    try {
-      // Panggil fungsi loadPenghasilanbulanan
-      await loadPenghasilanbulanan();
-
-      // Panggil fungsi loadDilayaniSelesai
-      await loadDilayaniSelesai();
-
-      // Fungsi ini akan mencapai baris ini setelah kedua fungsi selesai dieksekusi
-      print('Kedua fungsi telah selesai dieksekusi.');
-    } catch (error) {
-      print('Error fetching data: $error');
-    }
+    await loadPenghasilanbulanan();
+    await loadDilayaniSelesai();
   }
 
   void toggleSwitch(bool value) {
@@ -93,6 +82,8 @@ class BerandaController extends GetxController {
       isLoading(false);
       print('Error saat update habis: $error');
     }
+    await loadPenghasilanbulanan();
+    await loadDilayaniSelesai();
   }
 
   Future<void> loadPenghasilanbulanan() async {
@@ -102,7 +93,7 @@ class BerandaController extends GetxController {
       penghasilan(result);
       isLoading(false);
       update();
-      print('shapp');
+      print('Ini load penghasilan dipanggil');
     } catch (error) {
       isLoading(false);
       print('Error fetching datad: $error');
@@ -116,7 +107,7 @@ class BerandaController extends GetxController {
       dilayani(result);
       isLoading(false);
       update();
-      print('sukses');
+      print('Ini load dilayani dipanggil');
     } catch (error) {
       isLoading(false);
       print('Error fetching loadDilayaniSelesai: $error');
@@ -126,10 +117,15 @@ class BerandaController extends GetxController {
   Future<void> getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     kantin.value = prefs.getString('id_kantin') ?? ''; // Set nilai RxString
-    bool status = prefs.getBool('status') ?? false;
+    // bool status = prefs.getBool('status') ?? false;
+    // isSwitchOn.value = status;
+    Count result = await cProvider.value.loadCount();
+    print('-------');
+    print(result.data?.statusKantin);
+    bool status = result.data?.statusKantin == 1 ? true : false;
     isSwitchOn.value = status;
     String token = prefs.getString('token') ?? '';
-    print(status);
+    // print(status);
     update(); // Perbarui state setelah mendapatkan nilai baru
   }
 }
