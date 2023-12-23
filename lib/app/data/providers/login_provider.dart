@@ -36,7 +36,6 @@ class LoginProvider extends GetxController {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('status', status);
       await prefs.setString('token', token);
-
       saveTokenToSharedPreferencess(idKantin, username, email);
       print(email);
 

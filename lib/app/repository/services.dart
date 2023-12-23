@@ -4,6 +4,7 @@ class Api {
   static const signUp = "$koneksi/validate/register";
   static const signIn = "$koneksi/validate/loginKantin";
   static const kantinAktif = "$koneksi/validate/editStatus";
+  static const getToken = "$koneksi/validate/getTokenKantin";
   static const penghasilan = "$koneksi/dataPenjualan";
   static const pesananKantin = "$koneksi/transaction/listOrderKantin";
   static const konfirmasi = "$koneksi/transaction/konfirmasiPesanan";
