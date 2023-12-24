@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../beranda/controllers/beranda_controller.dart';
 
 class SplashController extends GetxController {
-  final berandaController = Get.put(BerandaController());
+  // final berandaController = Get.put(BerandaController());
   //TODO: Implement SplashController
 
   final count = 0.obs;
@@ -44,7 +44,7 @@ class SplashController extends GetxController {
     Future.delayed(Duration(seconds: 3), () {
       if (prefs.getString('token') != null) {
         Get.offAllNamed('/navigation');
-        berandaController.getToken();
+        // berandaController.getToken();
       } else {
         _navigateToLogin();
       }
