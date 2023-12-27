@@ -58,17 +58,6 @@ class ProfilView extends GetView<ProfilController> {
                         borderRadius: BorderRadius.circular(60.0),
                         border: Border.all(width: 2.0, color: Colors.blue),
                       ),
-                      // child: ClipOval(
-                      //   child: _foto != null
-                      //       ? Image.network(
-                      //           "http://dikantin.com/" +
-                      //               _foto!.replaceAll('"', ''),
-                      //           width: 120.0,
-                      //           height: 120.0,
-                      //           fit: BoxFit.cover,
-                      //         )
-                      //       : SizedBox(),
-                      // ),
                     ),
                     SizedBox(
                       height: 20,
@@ -133,67 +122,73 @@ class ProfilView extends GetView<ProfilController> {
                               showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return AlertDialog(
-                                    content: Image.asset(
-                                      "assets/Tanya.png",
-                                      width: 64.0,
-                                      height: 64.0,
-                                      fit: BoxFit.fitHeight,
-                                    ),
-                                    actions: <Widget>[
-                                      Center(
-                                        child: Text(
-                                          "Anda Akan Logout ?",
-                                          style: TextStyle(
-                                            color: Color(0xff3CA2D9),
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 18.0,
+                                  return MediaQuery(
+                                    data: query.copyWith(
+                                        textScaleFactor: query.textScaleFactor
+                                            .clamp(1.0, 1.15)),
+                                    child: AlertDialog(
+                                      content: Image.asset(
+                                        "assets/Tanya.png",
+                                        width: 64.0,
+                                        height: 64.0,
+                                        fit: BoxFit.fitHeight,
+                                      ),
+                                      actions: <Widget>[
+                                        Center(
+                                          child: Text(
+                                            "Anda Akan Logout ?",
+                                            style: TextStyle(
+                                              color: Color(0xff3CA2D9),
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 18.0,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Expanded(
-                                            child: ElevatedButton(
-                                              child: Text('Ya'),
-                                              onPressed: () async {
-                                                await profilController.logout();
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: ElevatedButton(
+                                                child: Text('Ya'),
+                                                onPressed: () async {
+                                                  await profilController
+                                                      .logout();
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                  ),
+                                                  backgroundColor: Colors.green,
                                                 ),
-                                                backgroundColor: Colors.green,
                                               ),
                                             ),
-                                          ),
-                                          SizedBox(width: 8),
-                                          Expanded(
-                                            child: ElevatedButton(
-                                              child: Text('Tidak'),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
+                                            SizedBox(width: 8),
+                                            Expanded(
+                                              child: ElevatedButton(
+                                                child: Text('Tidak'),
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                  ),
+                                                  backgroundColor: Colors.red,
                                                 ),
-                                                backgroundColor: Colors.red,
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   );
                                 },
                               );

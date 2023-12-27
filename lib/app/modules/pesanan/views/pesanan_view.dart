@@ -1,12 +1,10 @@
 // ignore_for_file: sort_child_properties_last, prefer_const_constructors
 
-import 'package:dikantin_o_l_d/app/data/providers/pesananKantin.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -105,6 +103,8 @@ class PesananView extends GetView<PesananController> {
   Widget listItems(BuildContext context) {
     final baseColorHex = 0xFFE0E0E0;
     final highlightColorHex = 0xFFC0C0C0;
+    final query = MediaQuery.of(context);
+
     final mediaHeight =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     return Obx(() {
@@ -358,96 +358,103 @@ class PesananView extends GetView<PesananController> {
                                                 showDialog(
                                                   context: context,
                                                   builder: (context) {
-                                                    return AlertDialog(
-                                                      content: Image.asset(
-                                                        "assets/Logout.png",
-                                                        width: 150.0,
-                                                        height: 150.0,
-                                                        fit: BoxFit.fitHeight,
-                                                      ),
-                                                      actions: <Widget>[
-                                                        Center(
-                                                          child: Text(
-                                                            "Pesanan Memasak ?",
-                                                            style: TextStyle(
-                                                              color: Color(
-                                                                  0xff3CA2D9),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              fontSize: 18.0,
+                                                    return MediaQuery(
+                                                        data: query.copyWith(
+                                                          textScaleFactor: query
+                                                              .textScaleFactor
+                                                              .clamp(
+                                                                  1.0, 1.15)),
+                                                      child: AlertDialog(
+                                                        content: Image.asset(
+                                                          "assets/Logout.png",
+                                                          width: 150.0,
+                                                          height: 150.0,
+                                                          fit: BoxFit.fitHeight,
+                                                        ),
+                                                        actions: <Widget>[
+                                                          Center(
+                                                            child: Text(
+                                                              "Pesanan Memasak ?",
+                                                              style: TextStyle(
+                                                                color: Color(
+                                                                    0xff3CA2D9),
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize: 18.0,
+                                                              ),
                                                             ),
                                                           ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 20,
-                                                        ),
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Expanded(
-                                                              child:
-                                                                  ElevatedButton(
+                                                          SizedBox(
+                                                            height: 20,
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Expanded(
                                                                 child:
-                                                                    Text('Ya'),
-                                                                onPressed:
-                                                                    () async {
-                                                                  await pesananController.keMemasakOnline(
-                                                                      menuData
-                                                                          .kantin
-                                                                          .toString(),
-                                                                      menuData
-                                                                          .idMenu,
-                                                                      menuData
-                                                                          .kodeTr);
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                  await pesananController
-                                                                      .loadPesananKantin();
-                                                                },
-                                                                style: ElevatedButton
-                                                                    .styleFrom(
-                                                                  shape:
-                                                                      RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            10.0),
+                                                                    ElevatedButton(
+                                                                  child:
+                                                                      Text('Ya'),
+                                                                  onPressed:
+                                                                      () async {
+                                                                    await pesananController.keMemasakOnline(
+                                                                        menuData
+                                                                            .kantin
+                                                                            .toString(),
+                                                                        menuData
+                                                                            .idMenu,
+                                                                        menuData
+                                                                            .kodeTr);
+                                                                    await pesananController
+                                                                        .loadPesananKantin();
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                  style: ElevatedButton
+                                                                      .styleFrom(
+                                                                    shape:
+                                                                        RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10.0),
+                                                                    ),
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .green,
                                                                   ),
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .green,
                                                                 ),
                                                               ),
-                                                            ),
-                                                            SizedBox(width: 8),
-                                                            Expanded(
-                                                              child:
-                                                                  ElevatedButton(
-                                                                child: Text(
-                                                                    'Tidak'),
-                                                                onPressed: () {
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                },
-                                                                style: ElevatedButton
-                                                                    .styleFrom(
-                                                                  shape:
-                                                                      RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            10.0),
+                                                              SizedBox(width: 8),
+                                                              Expanded(
+                                                                child:
+                                                                    ElevatedButton(
+                                                                  child: Text(
+                                                                      'Tidak'),
+                                                                  onPressed: () {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                  style: ElevatedButton
+                                                                      .styleFrom(
+                                                                    shape:
+                                                                        RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10.0),
+                                                                    ),
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .red,
                                                                   ),
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .red,
                                                                 ),
                                                               ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
                                                     );
                                                   },
                                                 );
@@ -470,95 +477,98 @@ class PesananView extends GetView<PesananController> {
                                                         showDialog(
                                                           context: context,
                                                           builder: (context) {
-                                                            return AlertDialog(
-                                                              content:
-                                                                  Image.asset(
-                                                                "assets/Logout.png",
-                                                                width: 150.0,
-                                                                height: 150.0,
-                                                                fit: BoxFit
-                                                                    .fitHeight,
-                                                              ),
-                                                              actions: <Widget>[
-                                                                Center(
-                                                                  child: Text(
-                                                                    "Pesanan Selesai ?",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Color(
-                                                                          0xff3CA2D9),
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                      fontSize:
-                                                                          18.0,
+                                                            return MediaQuery(
+                                                              data: query.copyWith(
+                                                                  textScaleFactor: query
+                                                                      .textScaleFactor
+                                                                      .clamp(
+                                                                          1.0,
+                                                                          1.15)),
+                                                              child:
+                                                                  AlertDialog(
+                                                                content:
+                                                                    Image.asset(
+                                                                  "assets/Logout.png",
+                                                                  width: 150.0,
+                                                                  height: 150.0,
+                                                                  fit: BoxFit
+                                                                      .fitHeight,
+                                                                ),
+                                                                actions: <Widget>[
+                                                                  Center(
+                                                                    child: Text(
+                                                                      "Pesanan Selesai ?",
+                                                                      style:
+                                                                          TextStyle(
+                                                                        color: Color(
+                                                                            0xff3CA2D9),
+                                                                        fontWeight:
+                                                                            FontWeight.w700,
+                                                                        fontSize:
+                                                                            18.0,
+                                                                      ),
                                                                     ),
                                                                   ),
-                                                                ),
-                                                                SizedBox(
-                                                                  height: 20,
-                                                                ),
-                                                                Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Expanded(
-                                                                      child:
-                                                                          ElevatedButton(
-                                                                        child: Text(
-                                                                            'Ya'),
-                                                                        onPressed:
-                                                                            () async {
-                                                                          await pesananController.keMemasakselesaiOnline(
-                                                                              menuData.kantin.toString(),
-                                                                              menuData.idMenu,
-                                                                              menuData.kodeTr);
-                                                                          await pesananController
-                                                                              .loadPesananKantin();
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                        },
-                                                                        style: ElevatedButton
-                                                                            .styleFrom(
-                                                                          shape:
-                                                                              RoundedRectangleBorder(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(10.0),
+                                                                  SizedBox(
+                                                                    height: 20,
+                                                                  ),
+                                                                  Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Expanded(
+                                                                        child:
+                                                                            ElevatedButton(
+                                                                          child:
+                                                                              Text('Ya'),
+                                                                          onPressed:
+                                                                              () async {
+                                                                            await pesananController.keMemasakselesaiOnline(
+                                                                                menuData.kantin.toString(),
+                                                                                menuData.idMenu,
+                                                                                menuData.kodeTr);
+                                                                            await pesananController.loadPesananKantin();
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          style:
+                                                                              ElevatedButton.styleFrom(
+                                                                            shape:
+                                                                                RoundedRectangleBorder(
+                                                                              borderRadius: BorderRadius.circular(10.0),
+                                                                            ),
+                                                                            backgroundColor:
+                                                                                Colors.green,
                                                                           ),
-                                                                          backgroundColor:
-                                                                              Colors.green,
                                                                         ),
                                                                       ),
-                                                                    ),
-                                                                    SizedBox(
-                                                                        width:
-                                                                            8),
-                                                                    Expanded(
-                                                                      child:
-                                                                          ElevatedButton(
-                                                                        child: Text(
-                                                                            'Tidak'),
-                                                                        onPressed:
-                                                                            () {
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                        },
-                                                                        style: ElevatedButton
-                                                                            .styleFrom(
-                                                                          shape:
-                                                                              RoundedRectangleBorder(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(10.0),
+                                                                      SizedBox(
+                                                                          width:
+                                                                              8),
+                                                                      Expanded(
+                                                                        child:
+                                                                            ElevatedButton(
+                                                                          child:
+                                                                              Text('Tidak'),
+                                                                          onPressed:
+                                                                              () {
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          style:
+                                                                              ElevatedButton.styleFrom(
+                                                                            shape:
+                                                                                RoundedRectangleBorder(
+                                                                              borderRadius: BorderRadius.circular(10.0),
+                                                                            ),
+                                                                            backgroundColor:
+                                                                                Colors.red,
                                                                           ),
-                                                                          backgroundColor:
-                                                                              Colors.red,
                                                                         ),
                                                                       ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ],
+                                                                    ],
+                                                                  ),
+                                                                ],
+                                                              ),
                                                             );
                                                           },
                                                         );
@@ -576,93 +586,97 @@ class PesananView extends GetView<PesananController> {
                                                         showDialog(
                                                           context: context,
                                                           builder: (context) {
-                                                            return AlertDialog(
-                                                              content:
-                                                                  Image.asset(
-                                                                "assets/Logout.png",
-                                                                width: 150.0,
-                                                                height: 150.0,
-                                                                fit: BoxFit
-                                                                    .fitHeight,
-                                                              ),
-                                                              actions: <Widget>[
-                                                                Center(
-                                                                  child: Text(
-                                                                    "Pesanan Selesai ?",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Color(
-                                                                          0xff3CA2D9),
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                      fontSize:
-                                                                          18.0,
+                                                            return MediaQuery(
+                                                              data: query.copyWith(
+                                                                  textScaleFactor: query
+                                                                      .textScaleFactor
+                                                                      .clamp(
+                                                                          1.0,
+                                                                          1.15)),
+                                                              child:
+                                                                  AlertDialog(
+                                                                content:
+                                                                    Image.asset(
+                                                                  "assets/Logout.png",
+                                                                  width: 150.0,
+                                                                  height: 150.0,
+                                                                  fit: BoxFit
+                                                                      .fitHeight,
+                                                                ),
+                                                                actions: <Widget>[
+                                                                  Center(
+                                                                    child: Text(
+                                                                      "Pesanan Selesai ?",
+                                                                      style:
+                                                                          TextStyle(
+                                                                        color: Color(
+                                                                            0xff3CA2D9),
+                                                                        fontWeight:
+                                                                            FontWeight.w700,
+                                                                        fontSize:
+                                                                            18.0,
+                                                                      ),
                                                                     ),
                                                                   ),
-                                                                ),
-                                                                SizedBox(
-                                                                  height: 20,
-                                                                ),
-                                                                Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Expanded(
-                                                                      child:
-                                                                          ElevatedButton(
-                                                                        child: Text(
-                                                                            'Ya'),
-                                                                        onPressed:
-                                                                            () async {
-                                                                          await pesananController.keMemasakselesaiOffline(
-                                                                              menuData.kantin.toString(),
-                                                                              menuData.idMenu,
-                                                                              menuData.kodeTr);
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                        },
-                                                                        style: ElevatedButton
-                                                                            .styleFrom(
-                                                                          shape:
-                                                                              RoundedRectangleBorder(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(10.0),
+                                                                  SizedBox(
+                                                                    height: 20,
+                                                                  ),
+                                                                  Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Expanded(
+                                                                        child:
+                                                                            ElevatedButton(
+                                                                          child:
+                                                                              Text('Ya'),
+                                                                          onPressed:
+                                                                              () async {
+                                                                            await pesananController.keMemasakselesaiOffline(
+                                                                                menuData.kantin.toString(),
+                                                                                menuData.idMenu,
+                                                                                menuData.kodeTr);
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          style:
+                                                                              ElevatedButton.styleFrom(
+                                                                            shape:
+                                                                                RoundedRectangleBorder(
+                                                                              borderRadius: BorderRadius.circular(10.0),
+                                                                            ),
+                                                                            backgroundColor:
+                                                                                Colors.green,
                                                                           ),
-                                                                          backgroundColor:
-                                                                              Colors.green,
                                                                         ),
                                                                       ),
-                                                                    ),
-                                                                    SizedBox(
-                                                                        width:
-                                                                            8),
-                                                                    Expanded(
-                                                                      child:
-                                                                          ElevatedButton(
-                                                                        child: Text(
-                                                                            'Tidak'),
-                                                                        onPressed:
-                                                                            () {
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                        },
-                                                                        style: ElevatedButton
-                                                                            .styleFrom(
-                                                                          shape:
-                                                                              RoundedRectangleBorder(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(10.0),
+                                                                      SizedBox(
+                                                                          width:
+                                                                              8),
+                                                                      Expanded(
+                                                                        child:
+                                                                            ElevatedButton(
+                                                                          child:
+                                                                              Text('Tidak'),
+                                                                          onPressed:
+                                                                              () {
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          style:
+                                                                              ElevatedButton.styleFrom(
+                                                                            shape:
+                                                                                RoundedRectangleBorder(
+                                                                              borderRadius: BorderRadius.circular(10.0),
+                                                                            ),
+                                                                            backgroundColor:
+                                                                                Colors.red,
                                                                           ),
-                                                                          backgroundColor:
-                                                                              Colors.red,
                                                                         ),
                                                                       ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ],
+                                                                    ],
+                                                                  ),
+                                                                ],
+                                                              ),
                                                             );
                                                           },
                                                         );
