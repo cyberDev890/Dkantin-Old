@@ -203,45 +203,86 @@ class PesananView extends GetView<PesananController> {
                                             BorderRadius.circular(10)),
                                   ),
                                   SizedBox(
-                                    width: 5,
+                                    width: 10,
                                   ),
                                   Expanded(
-                                    child: Text(
-                                      menuData.pesanan.toString(),
-                                    ),
-                                    flex: 2,
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      "x " + menuData.jumlah.toString(),
-                                    ),
-                                    flex: 1,
-                                  ),
-                                  menuData.noMeja.toString() == "0"
-                                      ? Expanded(
+                                    child: Column(
+                                      children: [
+                                        Align(
+                                          alignment: Alignment.centerLeft,
                                           child: Text(
-                                            "Pesanan Online",
+                                            "Kode Transaksi : " +
+                                                menuData.kodeTr.toString(),
                                             style: TextStyle(
                                                 color: Color(0xff514d4e),
-                                                fontSize: 11,
+                                                fontSize: 15,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          flex: 1,
-                                        )
-                                      : Expanded(
-                                          child: Text(
-                                            "Meja: " +
-                                                menuData.noMeja.toString(),
-                                            style: TextStyle(
-                                                color: Color(0xff514d4e),
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          flex: 1,
                                         ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                menuData.pesanan.toString(),
+                                              ),
+                                              flex: 3,
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                "x " +
+                                                    menuData.jumlah.toString(),
+                                              ),
+                                              flex: 1,
+                                            ),
+                                            menuData.noMeja.toString() == "0"
+                                                ? Expanded(
+                                                    child: Text(
+                                                      "Pesanan Online",
+                                                      style: TextStyle(
+                                                          color:
+                                                              Color(0xff514d4e),
+                                                          fontSize: 11,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    flex: 1,
+                                                  )
+                                                : Expanded(
+                                                    child: Text(
+                                                      "Meja: " +
+                                                          menuData.noMeja
+                                                              .toString(),
+                                                      style: TextStyle(
+                                                          color:
+                                                              Color(0xff514d4e),
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    flex: 1,
+                                                  )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
                               SizedBox(
                                 height: 10,
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Pembeli : " + menuData.pembeli.toString(),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Color(0xff514d4e),
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                               menuData.catatan == '' || menuData.catatan == null
                                   ? Text("")
@@ -251,8 +292,7 @@ class PesananView extends GetView<PesananController> {
                                         "Catatan : " + (menuData.catatan ?? ''),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 166, 166, 166),
+                                            color: Color(0xff514d4e),
                                             fontWeight: FontWeight.bold,
                                             fontSize: 12),
                                       ),

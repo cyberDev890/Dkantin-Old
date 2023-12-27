@@ -1,17 +1,28 @@
-# dikantin_o_l_d
 
-A new Flutter project.
+# DiKantin Partner
 
-## Getting Started
+DiKantin Partner is a specialized application designed to assist cafeteria managers at Polije. This application enables users to efficiently receive orders, manage cafeteria menus, and track feedback from customers. With Dikantin Partner, cafeteria managers can optimize their operations, enhance customer service, and stay informed about customer opinions and preferences
 
-This project is a starting point for a Flutter application.
+## Installation
 
-A few resources to get you started if this is your first Flutter project:
+Clone the project
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```bash
+  git clone https://github.com/cyberDev890/Dkantin-Old.git
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# Dkantin-Old
+Or
+```bash
+  git pull https://github.com/cyberDev890/Dkantin-Old.git main
+```
+
+Go to the project directory
+
+```bash
+  cd my-project
+```
+
+Install 
+```bash
+  flutter pub get
+```
