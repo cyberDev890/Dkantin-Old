@@ -56,6 +56,8 @@ class NavigationView extends GetView<NavigationController> {
             floatingActionButton: FloatingActionButton(
               onPressed: () async {
                 await pesananController.loadPesananKantin();
+                await navigationController.checkToken();
+
                 navigationController.changeTab(2);
 
                 // Do other actions if needed
@@ -125,14 +127,17 @@ class NavigationView extends GetView<NavigationController> {
         minWidth: 40,
         onPressed: () {
           navigationController.changeTab(tabIndex);
-          if (tabIndex == 1) {
-            // Call loadmenu when the "Menu" tab is pressed
-            menuNavController.loadmenu();
-          } else if (tabIndex == 0) {
+          if (tabIndex == 0) {
             berandaController.loadPenghasilanbulanan();
             berandaController.loadDilayaniSelesai();
-          } else if (tabIndex == 2) {
-            pesananController.loadPesananKantin();
+            navigationController.checkToken();
+          } else if (tabIndex == 1) {
+            menuNavController.loadmenu();
+            navigationController.checkToken();
+          } else if (tabIndex == 3) {
+            navigationController.checkToken();
+          } else if (tabIndex == 4) {
+            navigationController.checkToken();
           }
         },
         child: Column(
